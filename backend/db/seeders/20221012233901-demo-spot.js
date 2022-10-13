@@ -14,6 +14,7 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Spots',[
       {
+        ownerId:1,
         address:'122 Disney Lane',
         city: 'Orlando',
         state:'Florida',
@@ -26,6 +27,7 @@ module.exports = {
       },
 
       {
+        ownerId:2,
         address:'123 Disney Lane',
         city: 'Orlando',
         state:'Florida',
@@ -37,6 +39,7 @@ module.exports = {
         price: 168,
       },
       {
+        ownerId:3,
         address:'124 Disney Lane',
         city: 'Orlando',
         state:'Florida',
@@ -57,6 +60,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete('People', null, {});
+     await queryInterface.bulkDelete('Spots', null, {});
   }
 };
