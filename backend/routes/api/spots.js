@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
     const newSpots = [];
 
     allSpots.forEach(ele => {
-        
+
         newSpots.push(ele.toJSON())
     })
 
@@ -37,7 +37,7 @@ router.get('/', async (req, res, next) => {
         delete spot.Reviews;
         delete spot.SpotImages
     })
-    
+
     res.json({
         Spot: newSpots
 
@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {
 });
 
 //Get all Spots owned by the Current User
-router.get('/current', requireAuth,async(req,res,next) =>{
+router.get('/current', requireAuth, async (req, res, next) => {
     const currentUser = req.user.id;
     const theSpot = await Spot.findAll({
         include: [
@@ -58,15 +58,15 @@ router.get('/current', requireAuth,async(req,res,next) =>{
             }
         ],
 
-        where:{
-            ownerId:currentUser
+        where: {
+            ownerId: currentUser
         }
     })
 
     const newSpots = [];
 
     theSpot.forEach(ele => {
-        
+
         newSpots.push(ele.toJSON())
     })
 
@@ -80,9 +80,71 @@ router.get('/current', requireAuth,async(req,res,next) =>{
 
 
     res.json({
-        Spots:newSpots
+        Spots: newSpots
     })
 })
+
+// Get details of a Spot from an id
+
+
+router.get('/:spotId', requireAuth, async (req, res, next) => {
+
+
+
+    const allSpots = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: SpotImage,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'spotId']
+                }
+            },
+            {
+                model: User,as:'Owner',
+                attributes:{
+                    include:['id','firstName','lastName'],
+                    exclude:['createdAt','updatedAt','username','email','hashedPassword']
+                }
+            }
+        ]
+
+    });
+
+    if(!allSpots){
+        return res.json( {
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    };
+
+    const newSpots = [allSpots.toJSON()];
+
+    const reviewNum = newSpots[0].Reviews.length;
+
+    let totalStars = 0;
+    
+
+    for(let i =0; i< newSpots[0].Reviews.length; i++){
+        let cur = newSpots[0].Reviews[i].stars;
+        totalStars += cur
+    }
+
+    newSpots[0].numReviews = reviewNum;
+    newSpots[0].avgStartRating = totalStars/newSpots[0].Reviews.length
+
+    delete newSpots[0].Reviews
+
+ 
+
+    res.json(newSpots)
+})
+
+
+
+
 
 
 
