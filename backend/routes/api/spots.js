@@ -103,21 +103,21 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
                 }
             },
             {
-                model: User,as:'Owner',
-                attributes:{
-                    include:['id','firstName','lastName'],
-                    exclude:['createdAt','updatedAt','username','email','hashedPassword']
+                model: User, as: 'Owner',
+                attributes: {
+                    include: ['id', 'firstName', 'lastName'],
+                    exclude: ['createdAt', 'updatedAt', 'username', 'email', 'hashedPassword']
                 }
             }
         ]
 
     });
 
-    if(!allSpots){
-        return res.json( {
+    if (!allSpots) {
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
-          })
+        })
     };
 
     const newSpots = [allSpots.toJSON()];
@@ -125,25 +125,69 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     const reviewNum = newSpots[0].Reviews.length;
 
     let totalStars = 0;
-    
 
-    for(let i =0; i< newSpots[0].Reviews.length; i++){
+
+    for (let i = 0; i < newSpots[0].Reviews.length; i++) {
         let cur = newSpots[0].Reviews[i].stars;
         totalStars += cur
     }
 
     newSpots[0].numReviews = reviewNum;
-    newSpots[0].avgStartRating = totalStars/newSpots[0].Reviews.length
+    newSpots[0].avgStartRating = totalStars / newSpots[0].Reviews.length
 
     delete newSpots[0].Reviews
 
- 
+
 
     res.json(newSpots)
 })
 
 
 
+// Create a Spot
+
+router.post('/', requireAuth, async (req, res, next) => {
+    const { id, address, city, state, country, lat, lng, name, description, price } = req.body;
+    const ownerId = req.user.id
+
+    try {
+        const newSpot = await Spot.create({
+            id,
+            ownerId,
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+
+        res.json(newSpot)
+    } catch (error) {
+        res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "address": "Street address is required",
+                "city": "City is required",
+                "state": "State is required",
+                "country": "Country is required",
+                "lat": "Latitude is not valid",
+                "lng": "Longitude is not valid",
+                "name": "Name must be less than 50 characters",
+                "description": "Description is required",
+                "price": "Price per day is required"
+            }
+        })
+    }
+
+
+
+
+})
 
 
 
