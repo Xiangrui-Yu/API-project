@@ -188,60 +188,113 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 // add an image based on the Spot's id
 
-router.post('/:spotId/images',requireAuth,async(req,res,next)=>{
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const userId = req.user.id;
 
-    
 
-    const {url,preview} = req.body;
 
-    const theSpot = await Spot.findByPk(req.params.spotId,{
-        attributes:{
-            exclude:['address','city','state','country','lat','lng','name','description','price','createdAt','updatedAt']
+    const { url, preview } = req.body;
+
+    const theSpot = await Spot.findByPk(req.params.spotId, {
+        attributes: {
+            exclude: ['address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt']
         },
-        include:{
-            model:SpotImage
+        include: {
+            model: SpotImage
         }
     })
 
-    if(!theSpot){
-        res.json(  {
+    if (!theSpot) {
+        res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
-          })
+        })
     };
 
     console.log('this is spotOwner', theSpot);
 
-    if(theSpot.ownerId === userId){
+    if (theSpot.ownerId === userId) {
         const newSpot = theSpot.toJSON()
         const newImage = await SpotImage.create({
-            spotId:req.params.spotId,
+            spotId: req.params.spotId,
             url,
             preview
         })
-    
+
         newSpot.url = newImage.url;
         newSpot.preview = newImage.preview
-        
+
         delete newSpot.SpotImages;
         // delete newSpot.ownerId
-    
+
         res.json(newSpot)
+    } else {
+        throw new Error('not the owner')
+    }
+
+
+})
+
+
+//Edit a Spot
+
+router.put('/:spotId', requireAuth, async (req, res, next) => {
+
+    const userId = req.user.id;
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const theSpot = await Spot.findByPk(req.params.spotId);
+
+    if (!theSpot) {
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+
+    if (userId === theSpot.ownerId) {
+        try {
+            theSpot.set({
+                address: address,
+                city: city,
+                state: state,
+                country: country,
+                lat: lat,
+                lng: lng,
+                name: name,
+                description: description,
+                price: price
+            })
+
+            await theSpot.save();
+
+            res.json(theSpot)
+        } catch (error) {
+            res.json({
+                "message": "Validation Error",
+                "statusCode": 400,
+                "errors": {
+                    "address": "Street address is required",
+                    "city": "City is required",
+                    "state": "State is required",
+                    "country": "Country is required",
+                    "lat": "Latitude is not valid",
+                    "lng": "Longitude is not valid",
+                    "name": "Name must be less than 50 characters",
+                    "description": "Description is required",
+                    "price": "Price per day is required"
+                }
+            })
+        }
     }else{
         throw new Error('not the owner')
     }
 
 
 })
- 
-
-//Edit a Spot
-
-router.put('/:spotId',requireAuth, async(req,res,next) =>{
-    
 
 
-})
+
 
 module.exports = router;
