@@ -189,12 +189,15 @@ router.post('/', requireAuth, async (req, res, next) => {
 // add an image based on the Spot's id
 
 router.post('/:spotId/images',requireAuth,async(req,res,next)=>{
+    const userId = req.user.id;
+
+    
 
     const {url,preview} = req.body;
 
     const theSpot = await Spot.findByPk(req.params.spotId,{
         attributes:{
-            exclude:['ownerId','address','city','state','country','lat','lng','name','description','price','createdAt','updatedAt']
+            exclude:['address','city','state','country','lat','lng','name','description','price','createdAt','updatedAt']
         },
         include:{
             model:SpotImage
@@ -208,20 +211,37 @@ router.post('/:spotId/images',requireAuth,async(req,res,next)=>{
           })
     };
 
-    const newSpot = theSpot.toJSON()
-    const newImage = await SpotImage.create({
-        spotId:req.params.spotId,
-        url,
-        preview
-    })
+    console.log('this is spotOwner', theSpot);
 
-    newSpot.url = newImage.url;
-    newSpot.preview = newImage.preview
+    if(theSpot.ownerId === userId){
+        const newSpot = theSpot.toJSON()
+        const newImage = await SpotImage.create({
+            spotId:req.params.spotId,
+            url,
+            preview
+        })
     
-    delete newSpot.SpotImages;
+        newSpot.url = newImage.url;
+        newSpot.preview = newImage.preview
+        
+        delete newSpot.SpotImages;
+        // delete newSpot.ownerId
+    
+        res.json(newSpot)
+    }else{
+        throw new Error('not the owner')
+    }
 
-    res.json(newSpot)
+
 })
  
+
+//Edit a Spot
+
+router.put('/:spotId',requireAuth, async(req,res,next) =>{
+    
+
+
+})
 
 module.exports = router;
