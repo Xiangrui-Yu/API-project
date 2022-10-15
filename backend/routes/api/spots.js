@@ -31,6 +31,7 @@ router.get('/', async (req, res, next) => {
         newSpots.push(ele.toJSON())
     })
 
+
     newSpots.forEach(spot => {
         spot.avgRating = spot.Reviews[0].stars;
         spot.previewImage = spot.SpotImages[0].url;
@@ -114,6 +115,7 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     });
 
     if (!allSpots) {
+        res.status(404)
         return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
@@ -167,6 +169,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
         res.json(newSpot)
     } catch (error) {
+        res.status(400);
         res.json({
             "message": "Validation Error",
             "statusCode": 400,
@@ -205,6 +208,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     })
 
     if (!theSpot) {
+        res.status(404)
         res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
@@ -247,6 +251,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     const theSpot = await Spot.findByPk(req.params.spotId);
 
     if (!theSpot) {
+        res.status (404);
         res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
@@ -271,6 +276,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 
             res.json(theSpot)
         } catch (error) {
+            res.status(400)
             res.json({
                 "message": "Validation Error",
                 "statusCode": 400,
@@ -294,7 +300,32 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 
 })
 
+//### Delete a Spot
 
+router.delete('/:spotId',requireAuth, async(req,res,next) =>{
+    const userId = req.user.id;
+    
+    const theSpot = await Spot.findByPk(req.params.spotId)
+    console.log(theSpot)
+    if(!theSpot){
+        res.status(404),
+        res.json( {
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    }
+    
+    if(userId === theSpot.ownerId){
+        
+        await theSpot.destroy()
+        res.json(   {
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+    }else{
+        throw new Error('not the owner')
+    }
 
+})
 
 module.exports = router;
