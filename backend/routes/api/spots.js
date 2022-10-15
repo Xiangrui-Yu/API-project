@@ -184,12 +184,44 @@ router.post('/', requireAuth, async (req, res, next) => {
         })
     }
 
-
-
-
 })
 
+// add an image based on the Spot's id
 
+router.post('/:spotId/images',requireAuth,async(req,res,next)=>{
 
+    const {url,preview} = req.body;
+
+    const theSpot = await Spot.findByPk(req.params.spotId,{
+        attributes:{
+            exclude:['ownerId','address','city','state','country','lat','lng','name','description','price','createdAt','updatedAt']
+        },
+        include:{
+            model:SpotImage
+        }
+    })
+
+    if(!theSpot){
+        res.json(  {
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    };
+
+    const newSpot = theSpot.toJSON()
+    const newImage = await SpotImage.create({
+        spotId:req.params.spotId,
+        url,
+        preview
+    })
+
+    newSpot.url = newImage.url;
+    newSpot.preview = newImage.preview
+    
+    delete newSpot.SpotImages;
+
+    res.json(newSpot)
+})
+ 
 
 module.exports = router;
