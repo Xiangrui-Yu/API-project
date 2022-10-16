@@ -1,12 +1,13 @@
 const express = require('express');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, User, SpotImage, Review, Booking } = require('../../db/models');
+const { Spot, User, SpotImage, Review, Booking,ReviewImage } = require('../../db/models');
 const router = express.Router();
 
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { urlencoded } = require('express');
+const reviewimage = require('../../db/models/reviewimage');
 
 
 // Get all Spots
@@ -405,6 +406,40 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
           })
     }
 
+})
+
+//### Get all Reviews by a Spot's id
+
+router.get('/:spotId/reviews',async(req,res,next) => {
+    const theReview = await Review.findByPk((req.params.spotId),{
+        include:[
+            {
+                model:User,
+                attributes:{
+                    exclude:['username','hashedPassword','email','createdAt','updatedAt']
+                }
+
+            },
+            {
+                model:ReviewImage,
+                attributes:{
+                    exclude:['reviewId','createdAt','updatedAt']
+                }
+            }
+        ]
+    })
+
+    if(!theReview){
+        res.status(404);
+        res.json( {
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    res.json({
+        Reviews:[theReview]
+    })
 })
 
 module.exports = router;
