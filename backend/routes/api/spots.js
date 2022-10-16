@@ -148,7 +148,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 // Get details of a Spot from an id
 
 
-router.get('/:spotId', requireAuth, async (req, res, next) => {
+router.get('/:spotId',  async (req, res, next) => {
 
 
 
@@ -296,7 +296,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         newSpot.preview = newImage.preview
 
         delete newSpot.SpotImages;
-        // delete newSpot.ownerId
+        delete newSpot.ownerId
 
         res.json(newSpot)
     } else {

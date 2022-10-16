@@ -5,7 +5,7 @@ const { User } = require('../../db/models');
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,signUpError } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -41,58 +41,61 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
-  handleValidationErrors
+  handleValidationErrors,
+  signUpError
 ];
 
 router.post(
   '/',
   validateSignup,
-  
+
   async (req, res) => {
     console.log("from sign-up")
 
+    const { firstName, lastName, email, password, username } = req.body;
 
-    
-    try {
-      const { firstName,lastName,email, password, username } = req.body;
-      const user = await User.signup({ firstName,lastName,email, username, password });
-  
-      if(User.email.includes(email)){
-        res.status(403);
-        res.json({
-          "message": "User already exists",
-          "statusCode": 403,
-          "errors": {
-            "email": "User with that email already exists"
-          }
-        })
-      };
+    let checkemail = await User.findAll({
+      where: {
+        email: email
+      }
+    })
 
-      const newuser = user.toJSON()
-  
-      const token =await setTokenCookie(res, user);
-  
-      newuser.token = token
-      delete newuser.createdAt;
-      delete newuser.updatedAt;
-      return res.json(
-        newuser,
-        
-      );
-    } catch (error) {
-      res.status(400);
-      res.json(  {
-        "message": "Validation error",
-        "statusCode": 400,
+    let checkusername = await User.findAll({
+      where: {
+        username: username
+      }
+    })
+
+    if (checkemail || checkusername) {
+      res.status(403);
+      res.json({
+        "message": "User already exists",
+        "statusCode": 403,
         "errors": {
-          "email": "Invalid email",
-          "username": "Username is required",
-          "firstName": "First Name is required",
-          "lastName": "Last Name is required"
+          "email": "User with that email already exists"
         }
       })
     }
-  
+
+
+    const user = await User.signup({ firstName, lastName, email, username, password });
+
+
+
+    const newuser = user.toJSON()
+
+    const token = await setTokenCookie(res, user);
+
+    newuser.token = token
+    delete newuser.createdAt;
+    delete newuser.updatedAt;
+    return res.json(
+      newuser,
+
+    );
+
+
+
   }
 );
 

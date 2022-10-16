@@ -6,7 +6,7 @@ const { User } = require('../../db/models');
 const router = express.Router();
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors,logInError } = require('../../utils/validation');
 
 
 
@@ -79,7 +79,8 @@ const validateLogin = [
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a password.'),
-  handleValidationErrors
+  handleValidationErrors,
+  logInError
 ];
 
 router.post(
@@ -90,18 +91,10 @@ router.post(
 
     const olduser = await User.login({ credential, password });
 
-    if(credential === null ||password === null){
-      res.status(400);
-      res.json( {
-        "message": "Validation error",
-        "statusCode": 400,
-        "errors": {
-          "credential": "Email or username is required",
-          "password": "Password is required"
-        }
-      })
+   
+    
 
-    }
+    
 
     if (!olduser) {
       // const err = new Error('Login failed');

@@ -15,20 +15,49 @@ const handleValidationErrors = (req, _res, next) => {
     err.errors = errors;
     err.status = 400;
     err.title = 'Bad request.';
-    // next(err);
-    _res.status(400);
-    _res.json({
-      "message": "Validation error",
-      "statusCode": 400,
-      "errors": {
-        "credential": "Email or username is required",
-        "password": "Password is required"
-      }
-    })
+    next(err);
+    // _res.status(400);
+    // _res.json({
+    //   "message": "Validation error",
+    //   "statusCode": 400,
+    //   "errors": {
+    //     "credential": "Email or username is required",
+    //     "password": "Password is required"
+    //   }
+    // })
   }
   next();
 };
 
+const logInError = (err,req,res,next) =>{
+  res.status(400);
+  res.json({
+    "message": "Validation error",
+    "statusCode": 400,
+    "errors": {
+      "credential": "Email or username is required",
+      "password": "Password is required"
+    }
+  })
+}
+
+const signUpError = (err,req,res,next) => {
+  res.status(400);
+  res.json( {
+    "message": "Validation error",
+    "statusCode": 400,
+    "errors": {
+      "email": "Invalid email",
+      "username": "Username is required",
+      "firstName": "First Name is required",
+      "lastName": "Last Name is required"
+    }
+  })
+}
+
+
 module.exports = {
-  handleValidationErrors
+  handleValidationErrors,
+  logInError,
+  signUpError
 };
