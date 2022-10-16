@@ -382,7 +382,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const userId = req.user.id;
 
     const theSpot = await Spot.findByPk(req.params.spotId)
-    console.log(theSpot)
+    
     if (!theSpot) {
         res.status(404),
             res.json({
