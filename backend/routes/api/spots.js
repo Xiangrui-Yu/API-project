@@ -32,17 +32,46 @@ router.get('/', async (req, res, next) => {
     })
 
 
+    for (let i = 0; i < newSpots.length; i++) {
+        let totalStars = 0;
+        let totalLength = 0;
+
+        if (newSpots[i].Reviews.length) {
+
+            newSpots[i].Reviews.forEach(review => {
+                totalStars += review.stars;
+                totalLength++
+
+            })
+            newSpots[i].avgRating = totalStars / totalLength
+        } else {
+            newSpots[i].avgRating = 'no review'
+        }
+        delete newSpots[i].Reviews
+
+    }
+
+
     newSpots.forEach(spot => {
-        spot.avgRating = spot.Reviews[0].stars;
-        spot.previewImage = spot.SpotImages[0].url;
-        delete spot.Reviews;
+
+        if (spot.SpotImages.length) {
+            if (spot.SpotImages[0].preview) {
+                spot.previewImage = spot.SpotImages[0].url
+
+            } else {
+                spot.previewImage = 'no spotImage'
+
+            }
+        } else {
+            spot.previewImage = 'no spotImage'
+        }
         delete spot.SpotImages
     })
 
+
+
     res.json({
         Spot: newSpots
-
-
     })
 });
 
@@ -71,12 +100,43 @@ router.get('/current', requireAuth, async (req, res, next) => {
         newSpots.push(ele.toJSON())
     })
 
+
+    for (let i = 0; i < newSpots.length; i++) {
+        let totalStars = 0;
+        let totalLength = 0;
+
+        if (newSpots[i].Reviews.length) {
+
+            newSpots[i].Reviews.forEach(review => {
+                totalStars += review.stars;
+                totalLength++
+
+            })
+            newSpots[i].avgRating = totalStars / totalLength
+        } else {
+            newSpots[i].avgRating = 'no review'
+        }
+        delete newSpots[i].Reviews
+
+    }
+
+
     newSpots.forEach(spot => {
-        spot.avgRating = spot.Reviews[0].stars;
-        spot.previewImage = spot.SpotImages[0].url;
-        delete spot.Reviews;
+
+        if (spot.SpotImages.length) {
+            if (spot.SpotImages[0].preview) {
+                spot.previewImage = spot.SpotImages[0].url
+
+            } else {
+                spot.previewImage = 'no spotImage'
+
+            }
+        } else {
+            spot.previewImage = 'no spotImage'
+        }
         delete spot.SpotImages
     })
+
 
 
 
@@ -127,15 +187,22 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     const reviewNum = newSpots[0].Reviews.length;
 
     let totalStars = 0;
+    
+    if(reviewNum){
+        for (let i = 0; i < newSpots[0].Reviews.length; i++) {
+            let cur = newSpots[0].Reviews[i].stars;
+            totalStars += cur
+        }
+    
+        newSpots[0].numReviews = reviewNum;
+        newSpots[0].avgStartRating = totalStars / newSpots[0].Reviews.length
+    }else{
+        newSpots[0].numReviews = '0 review';
+        newSpots[0].avgStartRating = 'no review yet'
 
-
-    for (let i = 0; i < newSpots[0].Reviews.length; i++) {
-        let cur = newSpots[0].Reviews[i].stars;
-        totalStars += cur
     }
 
-    newSpots[0].numReviews = reviewNum;
-    newSpots[0].avgStartRating = totalStars / newSpots[0].Reviews.length
+   
 
     delete newSpots[0].Reviews
 
@@ -215,7 +282,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         })
     };
 
-    console.log('this is spotOwner', theSpot);
+    
 
     if (theSpot.ownerId === userId) {
         const newSpot = theSpot.toJSON()
@@ -233,7 +300,11 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
         res.json(newSpot)
     } else {
-        throw new Error('not the owner')
+        res.status(403);
+        res.json( {
+            "message": "Forbidden",
+            "statusCode": 403
+          })
     }
 
 
@@ -251,7 +322,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     const theSpot = await Spot.findByPk(req.params.spotId);
 
     if (!theSpot) {
-        res.status (404);
+        res.status(404);
         res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
@@ -293,8 +364,12 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
                 }
             })
         }
-    }else{
-        throw new Error('not the owner')
+    } else {
+        res.status(403);
+        res.json(   {
+            "message": "Forbidden",
+            "statusCode": 403
+          })
     }
 
 
@@ -302,28 +377,32 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 
 //### Delete a Spot
 
-router.delete('/:spotId',requireAuth, async(req,res,next) =>{
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const userId = req.user.id;
-    
+
     const theSpot = await Spot.findByPk(req.params.spotId)
     console.log(theSpot)
-    if(!theSpot){
+    if (!theSpot) {
         res.status(404),
-        res.json( {
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-          })
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            })
     }
-    
-    if(userId === theSpot.ownerId){
-        
+
+    if (userId === theSpot.ownerId) {
+
         await theSpot.destroy()
-        res.json(   {
+        res.json({
             "message": "Successfully deleted",
             "statusCode": 200
+        })
+    } else {
+        res.status(403);
+        res.json(  {
+            "message": "Forbidden",
+            "statusCode": 403
           })
-    }else{
-        throw new Error('not the owner')
     }
 
 })
