@@ -62,7 +62,59 @@ router.get('/current', requireAuth, async (req, res, next) => {
 })
 
 
+//### Add an Image to a Review based on the Review's id
 
+router.post('/:reviewId/images',requireAuth,async(req,res,next) =>{
+    const userId = req.user.id;
+    const reviewId = req.params.reviewId;
+    const {url} = req.body;
+
+    const reviewImage = await Review.findByPk((reviewId),{
+        include:{
+            model:ReviewImage
+        }
+    })
+
+
+
+    if(!reviewImage){
+        res.status(404),
+        res.json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    if(reviewImage.ReviewImages.length >=10){
+        res.status(403),
+        res.json(  {
+            "message": "Maximum number of images for this resource was reached",
+            "statusCode": 403
+          })
+    } 
+
+    if(reviewImage.userId === userId){
+        const newImage = await ReviewImage.create({
+            reviewId:reviewId,
+            url:url
+    
+        })
+        const newImagePojo = newImage.toJSON()
+        delete newImagePojo.reviewId;
+        delete newImagePojo.updatedAt;
+        delete newImagePojo.createdAt;
+    
+        res.json(newImagePojo)
+    }else{
+        res.status(403);
+        res.json( {
+            "message": "Forbidden",
+            "statusCode": 403
+          })
+    }
+
+
+})
 
 
 
