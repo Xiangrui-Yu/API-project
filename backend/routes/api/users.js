@@ -65,8 +65,9 @@ router.post(
         username: username
       }
     })
+    console.log(checkemail,checkusername);
 
-    if (checkemail || checkusername) {
+    if (checkemail.length > 0 || checkusername.length >0) {
       res.status(403);
       res.json({
         "message": "User already exists",
