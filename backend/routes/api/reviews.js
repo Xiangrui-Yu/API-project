@@ -145,7 +145,7 @@ router.put('/:reviewId',requireAuth,async(req,res,next) =>{
             await theReview.save()
         
             res.json(theReview)
-            
+
         } catch (error) {
             res.status(400),
             res.json(   {
@@ -168,5 +168,35 @@ router.put('/:reviewId',requireAuth,async(req,res,next) =>{
   
 })
 
+//### Delete a Review
 
+router.delete('/:reviewId',requireAuth,async(req,res,next) =>{
+    const userId = req.user.id;
+    const reviewId = req.params.reviewId;
+
+    const theReview = await Review.findByPk(reviewId);
+
+    if(!theReview){
+        res.status(404),
+        res.json( {
+            "message": "Review couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    if(theReview.userId === userId){
+        await theReview.destroy();
+        res.json(  {
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+    }else{
+        res.status(403);
+        res.json( {
+            "message": "Forbidden",
+            "statusCode": 403
+          })
+    }
+
+})
 module.exports = router;
