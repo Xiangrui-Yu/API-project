@@ -1,6 +1,7 @@
 const express = require('express');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { Spot, User, SpotImage, Review, Booking,ReviewImage } = require('../../db/models');
+const {Op} = require('sequelize');
 const router = express.Router();
 
 
@@ -428,7 +429,7 @@ router.get('/:spotId/reviews',async(req,res,next) => {
             }
         ]
     })
-
+    console.log(theReview)
     if(!theReview){
         res.status(404);
         res.json( {
@@ -436,10 +437,84 @@ router.get('/:spotId/reviews',async(req,res,next) => {
             "statusCode": 404
           })
     }
+    const theReviewPojo = theReview.toJSON();
+
+    if(!theReviewPojo.ReviewImages.length){
+        theReviewPojo.ReviewImages = 'no review images'
+    }
 
     res.json({
-        Reviews:[theReview]
+        Reviews:[theReviewPojo]
     })
 })
+
+
+//### Create a Review for a Spot based on the Spot's id
+
+router.post('/:spotId/reviews',requireAuth, async(req,res,next) => {
+    const spotId = req.params.spotId;
+    
+    const userId = req.user.id;
+   
+
+    const {review,stars} = req.body;
+
+    const checkSpotId = await Spot.findAll({
+        where:{
+            id:spotId
+        }
+    })
+
+    
+    if(checkSpotId.length === 0){
+        res.status(404);
+        return res.json(  {
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    const checkUser = await Review.findAll({
+        where:{
+            [Op.and]:[
+                {userId:userId},
+                {spotId:spotId}
+            ]
+        }
+    });
+  
+
+    if(checkUser.length){
+        res.status(403);
+        return res.json(  {
+            "message": "User already has a review for this spot",
+            "statusCode": 403
+          })
+    }
+
+    try {
+        const newReview = await Review.create({
+            userId:userId,
+            spotId:spotId,
+            review:review,
+            stars:stars
+    
+        })
+        res.json(newReview)
+    } catch (error) {
+        res.status(400),
+        res.json(   {
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+              "review": "Review text is required",
+              "stars": "Stars must be an integer from 1 to 5",
+            }
+          })
+    }
+
+})
+
+
 
 module.exports = router;
