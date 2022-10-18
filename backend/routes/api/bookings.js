@@ -37,7 +37,7 @@ router.get('/current',requireAuth, async(req,res,next) => {
            
         ]
     })
-
+    console.log(currentBooking)
     const currentBookingPojo = []
 
     currentBooking.forEach(booking => {
