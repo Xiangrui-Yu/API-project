@@ -516,6 +516,35 @@ router.post('/:spotId/reviews',requireAuth, async(req,res,next) => {
 })
 
 
+//### Get all Bookings for a Spot based on the Spot's id
+
+router.get('/:spotId/bookings',requireAuth, async(req,res,next) =>{
+    const userId = req.user.id;
+    const spotId = req.params.spotId;
+
+    console.log(userId,spotId)
+
+    const bookings = await Booking.findAll({
+        where:{
+            spotId:spotId
+        },
+        include:{
+            model:User,
+            attributes:{
+                exclude:['username','hashedPassword','email','createdAt','updatedAt']
+            }
+        }
+    })
+
+    res.json(bookings)
+
+})
+
+
+
+
+
+
 
 
 
