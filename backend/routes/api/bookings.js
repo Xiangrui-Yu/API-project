@@ -114,7 +114,7 @@ router.put('/:bookingId',requireAuth, async(req,res,next) => {
 
     
 
-    let today = new Date().toString();
+    let today = new Date()
     console.log(today)
 
     if(today < endDate){
@@ -159,10 +159,39 @@ router.put('/:bookingId',requireAuth, async(req,res,next) => {
 })
 
 
+//### Delete a Booking
 
 
+router.delete('/:bookingId',requireAuth,async(req,res,next) => {
+    const bookingId = req.params.bookingId;
+    const userId = req.user.id;
+
+    const theBooking = await Booking.findByPk(bookingId)
+
+    if(!theBooking){
+        res.status(404);
+        return res.json( {
+            "message": "Booking couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    if(theBooking.userId === userId){
+        await theBooking.destroy();
+        res.json( {
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+    }else{
+        res.status(403);
+        res.json( {
+            "message": "Forbidden",
+            "statusCode": 403
+          })
+    }
 
 
+})
 
 
 
