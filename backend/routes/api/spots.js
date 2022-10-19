@@ -614,7 +614,7 @@ router.post('/:spotId/bookings',requireAuth, async(req,res,next) =>{
         }
     })    
 
-    console.log(checkBooking);
+    
 
     if(checkBooking.length >0){
         res.status(403);
