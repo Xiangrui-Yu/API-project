@@ -114,10 +114,18 @@ router.put('/:bookingId',requireAuth, async(req,res,next) => {
 
     
 
-    let today = new Date()
-    console.log(today)
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() +1;
+    let year = today.getFullYear();
 
-    if(today < endDate){
+    let currentDate = `${year}-${month}-${day}`
+
+
+
+
+
+    if(currentDate < endDate){
         res.status(403)
         return res.json( {
             "message": "Past bookings can't be modified",
@@ -176,6 +184,25 @@ router.delete('/:bookingId',requireAuth,async(req,res,next) => {
           })
     }
 
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() +1;
+    let year = today.getFullYear();
+
+    let currentDate = `${year}-${month}-${day}`
+
+    const startDate = theBooking.startDate
+
+    console.log(startDate);
+
+    if(currentDate > startDate){
+        res.status(403)
+        return res.json({
+            "message": "Bookings that have been started can't be deleted",
+            "statusCode": 403
+          })
+    }
+    
     if(theBooking.userId === userId){
         await theBooking.destroy();
         res.json( {
