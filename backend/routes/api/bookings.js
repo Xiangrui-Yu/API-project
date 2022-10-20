@@ -19,8 +19,6 @@ const { DATEONLY } = require('sequelize');
 
 
 
-<<<<<<< HEAD
-=======
 router.get('/current',requireAuth, async(req,res,next) => {
     const userId = req.user.id
 
@@ -221,7 +219,6 @@ router.delete('/:bookingId',requireAuth,async(req,res,next) => {
 
 
 })
->>>>>>> dev
 
 
 
