@@ -125,7 +125,7 @@ router.put('/:bookingId',requireAuth, async(req,res,next) => {
 
 
 
-    if(currentDate < endDate){
+    if(currentDate > endDate){
         res.status(403)
         return res.json( {
             "message": "Past bookings can't be modified",
