@@ -12,7 +12,10 @@ const { urlencoded } = require('express');
 router.get('/current', requireAuth, async (req, res, next) => {
     const currentUser = req.user.id
 
-    const thisReview = await Review.findOne({
+    const thisReview = await Review.findAll({
+        where:{
+            userId:currentUser
+        },
         include: [{
             model: User,
             attributes: {
@@ -25,7 +28,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 model:SpotImage
             },
             attributes:{
-                exclude: ['createdAt','updatedAt']
+                exclude: ['description','createdAt','updatedAt']
             }
            
         },
@@ -39,21 +42,29 @@ router.get('/current', requireAuth, async (req, res, next) => {
         ]
     })
 
-    const thisReviewPojo = thisReview.toJSON();
+    const thisReviewPojo = [];
 
-    const spotImageTable = thisReviewPojo.Spot.SpotImages;
+    thisReview.forEach(review => {
+        thisReviewPojo.push(review.toJSON())
+    })
 
-    if(spotImageTable){
-        if(spotImageTable[0].preview){
-            thisReviewPojo.Spot.previewImage = spotImageTable[0].url
+    thisReviewPojo.forEach(review => {
+        
+        const spotImageTable = review.Spot.SpotImages;
+        console.log(review)
+        if(spotImageTable.length >0){
+            if(spotImageTable[0].preview){
+                review.Spot.previewImage = spotImageTable[0].url
+            }else{
+                review.Spot.previewImage = 'no preview image'
+            }
         }else{
-            thisReviewPojo.Spot.previewImage = 'no preview image'
+            review.Spot.previewImage = 'no preview image'
         }
-    }else{
-        thisReviewPojo.Spot.previewImage = 'no preview image'
-    }
-
-    delete thisReviewPojo.Spot.SpotImages
+    
+        delete review.Spot.SpotImages
+    })
+  
 
 
     res.json({
