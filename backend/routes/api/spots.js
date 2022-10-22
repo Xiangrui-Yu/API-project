@@ -210,7 +210,7 @@ router.get('/:spotId',  async (req, res, next) => {
 
 
 
-    res.json(newSpots)
+    res.json(newSpots[0])
 })
 
 
