@@ -62,6 +62,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = 'Spots';
+
     /**
      * Add commands to revert seed here.
      *

@@ -18,7 +18,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = Reviews
+    options.tableName = 'Reviews'
 
     await queryInterface.bulkInsert(options,[
       {
@@ -48,6 +48,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     options.tableName = 'Reviews'
+
      await queryInterface.bulkDelete(options, null, {});
   }
 };
