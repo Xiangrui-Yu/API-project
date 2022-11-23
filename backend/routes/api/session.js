@@ -48,25 +48,28 @@ router.delete(
 router.get(
   '/',
   restoreUser,
-  (req, res) => {
+  async (req, res)  => {
     const { user } = req;
+    console.log(user)
+    // if(!user){
+    //   res.status(401);
+    //   res.json({
+    //     "message": "Invalid credentials",
+    //     "statusCode": 401
+    //   })
+    // }
 
-    if(!user){
-      res.status(401);
-      res.json({
-        "message": "Invalid credentials",
-        "statusCode": 401
-      })
-    }
-    const newuser = user.toJSON()
-    delete newuser.createdAt;
-    delete newuser.updatedAt;
+    // const newuser = user.toJSON()
+    // delete newuser.createdAt;
+    // delete newuser.updatedAt;
 
-    if (newuser) {
+    if (user) {
+      const token = await setTokenCookie(res, user);
+
       return res.json(
-        newuser
+        user
       );
-    } else return res.json({});
+    } else return res.json(null);
   }
 );
 
