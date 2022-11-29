@@ -15,7 +15,7 @@ export const getAllSpots = () => async(dispatch) =>{
     
     if(res.ok){
         const data = await res.json();
-        console.log('this is data',data)
+
         dispatch(load(data))
     }
 
@@ -30,7 +30,6 @@ export const spotReducer = (state = initialState, action) => {
                 ...state,
                 ...action.data
             }
-
         }
         default:
             return state
