@@ -26,7 +26,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/spots" exact>
+          <Route path="/api/spots" exact>
             <SpotsInfo />
           </Route>
 

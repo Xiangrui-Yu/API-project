@@ -12,8 +12,10 @@ const load = (data) =>({
 
 export const getAllSpots = () => async(dispatch) =>{
     const res = await fetch('/api/spots');
+    
     if(res.ok){
         const data = await res.json();
+        console.log('this is data',data)
         dispatch(load(data))
     }
 
