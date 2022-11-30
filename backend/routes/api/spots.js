@@ -73,7 +73,7 @@ router.get('/', async (req, res, next) => {
 
 
     res.json({
-        Spot: newSpots
+        Spots: newSpots
     })
 });
 
