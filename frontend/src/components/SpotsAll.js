@@ -7,31 +7,30 @@ import { getAllSpots } from '../store/spot';
 export const SpotsAll = () => {
     const dispatch = useDispatch();
 
+    const allSpotsObj = useSelector(state => {
+        console.log('this is state', state)
+        return state?.spot
+
+    });
+
+    const allSpots = Object.values(allSpotsObj)
+    
+    console.log('this is allSpots', allSpots)
+
     useEffect(() => {
         dispatch(getAllSpots())
     }, [dispatch])
 
 
-
-    const allSpots = useSelector(state => state.spot.Spots);
-    console.log('this is allSpots', allSpots)
-
-    // allSpots = Object.values(allSpots)
-    // if(!allSpots){
-    //     return null
-    // }
-    // const allSpotsArray = allSpots['Spots']
-    // console.log('this is allspotsArray', allSpotsArray)
-
     if (!allSpots) {
         return null;
     }
 
-    if(allSpots.length >0){
+
         return (
             <>
                 <ul>
-                    {allSpots.map(spot => {
+                    {allSpots && allSpots.map(spot => {
                        return <div key={spot.id}>
                                 <img className='previewImage' src={spot.previewImage}></img>
                                 <p>{spot.city},{spot.state}</p>
@@ -43,6 +42,6 @@ export const SpotsAll = () => {
                 </ul>
             </>
         )
-    }
+    
 
 }

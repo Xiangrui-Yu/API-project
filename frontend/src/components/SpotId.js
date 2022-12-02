@@ -5,8 +5,11 @@ import { getSpotsId } from '../store/spot';
 
 export const SpotId = () =>{
     const {spotId} = useParams();
-    const spotData = useSelector(state => state.spot)
-    console.log('this is spotData',spotData)
+    const spotData = useSelector(state => {
+        // console.log('this is state',state)
+        return state.spot
+    })
+    // console.log('this is spotData',spotData)
 
     const dispatch = useDispatch();
 
@@ -14,6 +17,17 @@ export const SpotId = () =>{
         dispatch(getSpotsId(spotId))
     },[dispatch])
 
-    return null
+    if(!spotData){
+        return null
+    }
+    return (
+        <>
+         <div>
+            {spotData?.spot?.SpotImages?.map(image =>{
+                return <img className='spotImage' key={image.id} src={image.url}></img>
+            })}
+        </div>   
+        </>
+    )
 
 }
