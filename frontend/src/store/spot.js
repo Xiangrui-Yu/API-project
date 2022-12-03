@@ -31,9 +31,9 @@ const addImg = (image) => ({
     type: ADD_IMG,
     image,
 });
-const updateSpot = (editData) =>({
+const updateSpot = (spot ) =>({
     type:UPDATE_SPOTS,
-    editData
+    spot
 })
 
 

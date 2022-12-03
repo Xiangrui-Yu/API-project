@@ -9,7 +9,7 @@ import Navigation from "./components/Navigation";
 import {SpotsAll} from './components/SpotsAll';
 import{SpotId} from './components/SpotId';
 import {SpotCurUser} from './components/SpotCurUser';
-import {AddSpot} from './components/AddSpot';
+import {SpotBrowser} from './components/SpotBrowser';
 import {AddSpotImg} from './components/AddSpotImg';
 
 function App() {
@@ -37,7 +37,10 @@ function App() {
             <SpotCurUser />
           </Route>
           <Route exact path="/spots/new" >
-            <AddSpot />
+            <SpotBrowser />
+          </Route>
+          <Route exact path="/spots/:spotId/edit" >
+            <SpotBrowser />
           </Route>
           <Route exact path="/spots/:spotId/images" >
             <AddSpotImg />

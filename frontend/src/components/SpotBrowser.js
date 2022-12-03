@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { addNewSpot } from '../store/spot';
 
-export const AddSpot = () =>{
+
+
+export const SpotBrowser = () =>{
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -52,7 +54,7 @@ export const AddSpot = () =>{
 
         let createNewSpot;
         try{
-            createNewSpot = dispatch(addNewSpot(payload));
+            createNewSpot = await dispatch(addNewSpot(payload));
         }catch(error){
             throw new Error('something is wrong')
         }
