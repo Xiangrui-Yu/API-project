@@ -24,7 +24,8 @@ export const AddSpotImg = () => {
         e.preventDefault();
 
         const payload = {
-            url
+            url,
+            preview:true
         }
         
         let createImg;
@@ -37,33 +38,32 @@ export const AddSpotImg = () => {
         if(createImg){
             history.push(`/spots/${spotId}`)
         }
-
-
-        return (
-            <form
-                className='create-image'
-                onSubmit={handleSubmit}
-            >
-                <h2>Create an Image to a Spot</h2>
-                <label>
-                    url
-                    <input
-                        type='text'
-                        name='url'
-                        onChange={e=>setUrl(e.target.value) }
-                        value={url}
-                    />
-                </label>
-
-                <button
-                    type='submit'
-                    disabled={errors.length >0}
-                >
-                    Create Img
-                </button>
-            </form>
-        )
     }
+
+    return (
+        <form
+            className='create-image'
+            onSubmit={handleSubmit}
+        >
+            <h2>Create an Image to a Spot</h2>
+            <label>
+                url
+                <input
+                    type='text'
+                    name='url'
+                    onChange={e=>setUrl(e.target.value) }
+                    value={url}
+                />
+            </label>
+
+            <button
+                type='submit'
+                disabled={errors.length >0}
+            >
+                Create Img
+            </button>
+        </form>
+    )
 
 
 

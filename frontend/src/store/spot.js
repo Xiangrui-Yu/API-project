@@ -30,8 +30,10 @@ const addSpot = (spot) => ({
 const addImg = (image) => ({
     type: ADD_IMG,
     image,
-    
-    
+});
+const updateSpot = (editData) =>({
+    type:UPDATE_SPOTS,
+    editData
 })
 
 
@@ -93,6 +95,22 @@ export const addNewImg = (image,spotId) => async dispatch => {
 
 }
 
+export const editSpot = (editData) => async dispatch =>{
+    const res = await csrfFetch(`/api/spots/${editData.id}`,{
+        method:'put',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(editData)
+    });
+
+    if(res.ok){
+        const updateData = await res.json();
+        dispatch(updateSpot(updateData));
+        return updateData
+    }
+
+}
 
 
 const spotReducer = (state = {}, action) => {
@@ -135,8 +153,8 @@ const spotReducer = (state = {}, action) => {
 
             console.log("this is triggered")
             const newState = {...state};
-            console.log('this is action.spot',action.spotId)
-            console.log('this is action.image', action.image)
+            // console.log('this is action.spot',action.spotId)
+            // console.log('this is action.image', action.image)
 
             newState[action.image.id] = action.image;
             return newState
