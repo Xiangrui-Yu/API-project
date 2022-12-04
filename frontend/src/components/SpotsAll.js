@@ -14,7 +14,7 @@ export const SpotsAll = () => {
     });
 
     const allSpots = Object.values(allSpotsObj)
-    
+
     console.log('this is allSpots', allSpots)
 
     useEffect(() => {
@@ -27,21 +27,32 @@ export const SpotsAll = () => {
     }
 
 
-        return (
-            <>
-                <ul>
-                    {allSpots && allSpots.map(spot => {
-                       return <div key={spot.id}>
-                                <img className='previewImage' src={spot.previewImage}></img>
-                                <p>{spot.city},{spot.state}</p>
-                                <p>{spot.createdAt}</p>
-                                <p>{spot.price}</p>
+    return (
+        <>
+            <div>
+                {allSpots && allSpots.map(spot => {
+                    return <div className='all-spots-container' key={spot.id}>
+                        <a href={`/spots/${spot.id}`}>
+                            <img className='previewImage' src={spot.previewImage}></img>
+                            <div className='all-spots-text-container'>
+                                <div>
+                                    <p>{spot.city},{spot.state}</p>
+                                    <p>{spot.createdAt}</p>
+                                    <p>${spot.price} night</p>
+
+                                </div>
+                                <div>
+                                    <p>{spot.avgRating}</p>
+                                </div>
                             </div>
-                    })}
-    
-                </ul>
-            </>
-        )
-    
+                        </a>
+                    </div>
+
+                })}
+
+            </div>
+        </>
+    )
+
 
 }

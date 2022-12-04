@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
-import { addNewSpot } from '../store/spot';
+import { addNewSpot, editSpot } from '../store/spot';
 
 
 
-export const SpotBrowser = () =>{
+export const SpotBrowser = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { spotId } = useParams()
+
 
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -19,27 +21,27 @@ export const SpotBrowser = () =>{
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
 
-    const [errors,setError] = useState([]);
+    const [errors, setError] = useState([]);
 
-    useEffect(()=>{
-        const validation =[];
-        if(address.length ===0) validation.push('address field is required')
-        if(city.length === 0) validation.push('city field is required')
-        if(state.length === 0) validation.push('state.length ===0')
-        if(country.length ===0) validation.push('country field is required')
-        if(lat.length ===0) validation.push('lat field is required')
-        if(lng.length === 0) validation.push('lng field is required')
-        if(name.length === 0) validation.push('name field is required')
-        if(description.length ===0) validation.push('description field is required')
-        if(price.length === 0) validation.push('price field is required')
-        
+    useEffect(() => {
+        const validation = [];
+        if (address.length === 0) validation.push('address field is required')
+        if (city.length === 0) validation.push('city field is required')
+        if (state.length === 0) validation.push('state.length ===0')
+        if (country.length === 0) validation.push('country field is required')
+        if (lat.length === 0) validation.push('lat field is required')
+        if (lng.length === 0) validation.push('lng field is required')
+        if (name.length === 0) validation.push('name field is required')
+        if (description.length === 0) validation.push('description field is required')
+        if (price.length === 0) validation.push('price field is required')
+
         setError(validation)
-    },[address, city,state,country,lat,lng,name,description,price])
+    }, [address, city, state, country, lat, lng, name, description, price])
 
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const payload= {
+        const payload = {
             address,
             city,
             state,
@@ -51,16 +53,25 @@ export const SpotBrowser = () =>{
             price
 
         };
+        if (spotId) {
 
-        let createNewSpot;
-        try{
-            createNewSpot = await dispatch(addNewSpot(payload));
-        }catch(error){
-            throw new Error('something is wrong')
-        }
 
-        if(createNewSpot){
-            history.push('/spots')
+            let editNewSpot = await dispatch(editSpot(payload, spotId))
+
+            if (editNewSpot) {
+                history.push(`/spots/${spotId}`)
+            }
+        } else {
+            let createNewSpot;
+            try {
+                createNewSpot = await dispatch(addNewSpot(payload));
+            } catch (error) {
+                throw new Error('something is wrong with creating a spot')
+            }
+
+            if (createNewSpot) {
+                history.push('/spots')
+            }
         }
 
     }
@@ -69,100 +80,100 @@ export const SpotBrowser = () =>{
             className='spot-form'
             onSubmit={handleSubmit}
         >
-            <h2>Create a Spot</h2>
-            <ul className ='errors'>
+            <h2></h2>
+            {/* <ul className='errors'>
                 {errors.map(error => {
                     return <li key={error}>{error}</li>
                 })}
-            </ul>
+            </ul> */}
             <label>
                 Address
-                <input 
-                type='text'
-                name='address'
-                onChange={e=>setAddress(e.target.value)}
-                value={address}
+                <input
+                    type='text'
+                    name='address'
+                    onChange={e => setAddress(e.target.value)}
+                    value={address}
                 />
             </label>
             <label>
                 City
-                <input 
-                type='text'
-                name='city'
-                onChange={e=>setCity(e.target.value)}
-                value={city}
+                <input
+                    type='text'
+                    name='city'
+                    onChange={e => setCity(e.target.value)}
+                    value={city}
                 />
             </label>
             <label>
                 State
-                <input 
-                type='text'
-                name='state'
-                onChange={e=>setState(e.target.value)}
-                value={state}
+                <input
+                    type='text'
+                    name='state'
+                    onChange={e => setState(e.target.value)}
+                    value={state}
                 />
             </label>
             <label>
                 Country
-                <input 
-                type='text'
-                name='country'
-                onChange={e=>setCountry(e.target.value)}
-                value={country}
+                <input
+                    type='text'
+                    name='country'
+                    onChange={e => setCountry(e.target.value)}
+                    value={country}
                 />
             </label>
             <label>
                 Lat
-                <input 
-                type='number'
-                name='lat'
-                onChange={e=>setLat(e.target.value)}
-                value={lat}
+                <input
+                    type='number'
+                    name='lat'
+                    onChange={e => setLat(e.target.value)}
+                    value={lat}
                 />
             </label>
             <label>
                 Lng
-                <input 
-                type='number'
-                name='lng'
-                onChange={e=>setLng(e.target.value)}
-                value={lng}
+                <input
+                    type='number'
+                    name='lng'
+                    onChange={e => setLng(e.target.value)}
+                    value={lng}
                 />
             </label>
             <label>
                 Name
-                <input 
-                type='text'
-                name='name'
-                onChange={e=>setName(e.target.value)}
-                value={name}
+                <input
+                    type='text'
+                    name='name'
+                    onChange={e => setName(e.target.value)}
+                    value={name}
                 />
             </label>
             <label>
                 Description
-                <input 
-                type='text'
-                name='description'
-                onChange={e=>setDescription(e.target.value)}
-                value={description}
+                <input
+                    type='text'
+                    name='description'
+                    onChange={e => setDescription(e.target.value)}
+                    value={description}
                 />
             </label>
             <label>
-               Price
-                <input 
-                type='number'
-                name='price'
-                onChange={e=>setPrice(e.target.value)}
-                value={price}
+                Price
+                <input
+                    type='number'
+                    name='price'
+                    onChange={e => setPrice(e.target.value)}
+                    value={price}
                 />
             </label>
             <button
-            type='submit'
-            disabled={errors.length >0}
+                type='submit'
+                disabled={errors.length > 0}
             >
-                Create Spot
+                Submit
             </button>
-            
+
         </form >
     )
 }

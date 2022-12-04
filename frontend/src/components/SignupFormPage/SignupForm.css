@@ -1,0 +1,10 @@
+.signup-form {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: right;
+    position: absolute;
+    right:30px;
+    border:solid red;
+    text-align: right;
+    
+}

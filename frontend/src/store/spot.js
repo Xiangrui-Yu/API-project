@@ -36,6 +36,11 @@ const updateSpot = (spot ) =>({
     spot
 })
 
+const removeSpot = (spotId) => ({
+    type:REMOVE_SPOTS,
+    spotId
+})
+
 
 export const getAllSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots');
@@ -95,8 +100,8 @@ export const addNewImg = (image,spotId) => async dispatch => {
 
 }
 
-export const editSpot = (editData) => async dispatch =>{
-    const res = await csrfFetch(`/api/spots/${editData.id}`,{
+export const editSpot = (editData,editId) => async dispatch =>{
+    const res = await csrfFetch(`/api/spots/${editId}`,{
         method:'put',
         headers:{
             'Content-Type':'application/json'
@@ -110,6 +115,17 @@ export const editSpot = (editData) => async dispatch =>{
         return updateData
     }
 
+}
+
+export const deleteSpot = (spotId) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${spotId}`,{
+        method:'delete'
+    });
+    if(res.ok) {
+        const {id:deletedSpotId} = await res.json();
+        dispatch(removeSpot(deletedSpotId));
+        
+    }
 }
 
 
@@ -143,6 +159,7 @@ const spotReducer = (state = {}, action) => {
                 ...state
             }
         }
+        case UPDATE_SPOTS:
         case ADD_SPOTS:{
             const newState = {...state};
             newState[action.spot.id] = action.spot;
@@ -151,12 +168,17 @@ const spotReducer = (state = {}, action) => {
 
         case ADD_IMG:{
 
-            console.log("this is triggered")
+            // console.log("this is triggered")
             const newState = {...state};
             // console.log('this is action.spot',action.spotId)
             // console.log('this is action.image', action.image)
 
             newState[action.image.id] = action.image;
+            return newState
+        }
+        case removeSpot:{
+            const newState = {...state};
+            delete newState[action.spotId];
             return newState
         }
 
