@@ -11,7 +11,7 @@ import{SpotId} from './components/SpotId';
 import {SpotCurUser} from './components/SpotCurUser';
 import {SpotBrowser} from './components/SpotBrowser';
 import {AddSpotImg} from './components/AddSpotImg';
-import {RemoveSpot} from './components/RemoveSpot';
+// import {RemoveSpot} from './components/RemoveSpot';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/spots" >
+          <Route exact path="/" >
             <SpotsAll />
           </Route>
           <Route exact path="/user/spots" >
@@ -46,9 +46,7 @@ function App() {
           <Route exact path="/spots/:spotId/images" >
             <AddSpotImg />
           </Route>
-          <Route exact path="/spots/:spotId/delete" >
-            <RemoveSpot />
-          </Route>
+
           <Route exact path="/spots/:spotId" >
             <SpotId />
           </Route>

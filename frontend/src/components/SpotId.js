@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Route, useParams } from 'react-router-dom';
-import { getSpotsId } from '../store/spot';
+import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
+import { getSpotsId, deleteSpot } from '../store/spot';
 
-export const SpotId = () =>{
-    const {spotId} = useParams();
+export const SpotId = () => {
+    const { spotId } = useParams();
     const spotData = useSelector(state => {
         // console.log('this is state',state)
         return state.spot
@@ -12,22 +12,64 @@ export const SpotId = () =>{
     // console.log('this is spotData',spotData)
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getSpotsId(spotId))
-    },[dispatch])
+    }, [dispatch])
 
-    if(!spotData){
+    if (!spotData) {
         return null
     }
     return (
-        <>
-         <div>
-            {spotData?.spot?.SpotImages?.map(image =>{
-                return <img className='spotImage' key={image.id} src={image.url}></img>
-            })}
-        </div>   
-        </>
+
+        <div className='spot-detail-outmost-container'>
+
+            <div className='spot-detail-name'>
+                {spotData?.spot?.name}
+            </div>
+            <div className='rest-information'>
+                <i className="fa-regular fa-star"></i>
+                {spotData?.spot?.avgStartRating} -
+                {spotData?.spot?.numReviews} -
+                {spotData?.spot?.city} -
+                {spotData?.spot?.state} -
+                {spotData?.spot?.country}
+            </div>
+
+            <img className='first-spotImage' key={spotData?.spot?.id} src={spotData?.spot?.SpotImages[0]?.url}></img>
+
+            <div className='spotImage-container'>
+                {spotData?.spot?.SpotImages.slice(1).map(image => {
+                    return <img className='spotImage' key={image.id} src={image.url}></img>
+                })}
+
+            </div>
+
+            <div className='spot-detail-owner'>
+                <p>{spotData?.spot?.name} hosted by {spotData?.spot?.Owner?.firstName} {spotData?.spot?.Owner?.lastName}</p>
+
+            </div>
+
+            <div className='spot-detail-links'>
+                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/images`}>add images</NavLink>-
+
+                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/edit`}>edit</NavLink>-
+
+                <button style={{ fontSize: 16, color: 'gray' }}
+                    onClick={() => {
+                        dispatch(deleteSpot(spotId))
+                        history.push('/')
+                    }}
+                >
+                    delete
+                </button>
+            </div>
+
+
+
+        </div>
+
     )
 
 }

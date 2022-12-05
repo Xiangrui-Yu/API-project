@@ -29,8 +29,8 @@ export const SpotBrowser = () => {
         if (city.length === 0) validation.push('city field is required')
         if (state.length === 0) validation.push('state.length ===0')
         if (country.length === 0) validation.push('country field is required')
-        if (lat.length === 0) validation.push('lat field is required')
-        if (lng.length === 0) validation.push('lng field is required')
+        // if (lat.length === 0) validation.push('lat field is required')
+        // if (lng.length === 0) validation.push('lng field is required')
         if (name.length === 0) validation.push('name field is required')
         if (description.length === 0) validation.push('description field is required')
         if (price.length === 0) validation.push('price field is required')
@@ -70,7 +70,7 @@ export const SpotBrowser = () => {
             }
 
             if (createNewSpot) {
-                history.push('/spots')
+                history.push('/')
             }
         }
 
@@ -122,7 +122,7 @@ export const SpotBrowser = () => {
                     value={country}
                 />
             </label>
-            <label>
+            {/* <label>
                 Lat
                 <input
                     type='number'
@@ -139,7 +139,7 @@ export const SpotBrowser = () => {
                     onChange={e => setLng(e.target.value)}
                     value={lng}
                 />
-            </label>
+            </label> */}
             <label>
                 Name
                 <input
@@ -170,6 +170,7 @@ export const SpotBrowser = () => {
             <button
                 type='submit'
                 disabled={errors.length > 0}
+                style={{fontSize:16}}
             >
                 Submit
             </button>

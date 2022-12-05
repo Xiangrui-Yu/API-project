@@ -27,7 +27,6 @@ button {
 .session-login {
     display: flex;
     justify-content: right;
-    margin:10px;
     text-decoration: none;
     color:rgb(105, 101, 101);
     right:80px;
@@ -39,8 +38,17 @@ button {
     display:block;
     text-align: right;
     font-size: 4px;
+    margin-top: 60px;
     margin:3px;
     position:absolute;
     right:250px
     
+}
+
+ul {
+    list-style:none;
+}
+
+i {
+    margin:3px
 }

@@ -1,5 +1,5 @@
 // frontend/src/components/Navigation/index.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -7,6 +7,30 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
+
+  // below as testing code
+
+  const [showMenu, setShowMenu] = useState(false);
+
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = () => {
+      setShowMenu(false);
+    };
+
+    document.addEventListener('click', closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  // above is testing code
+
 
   let sessionLinks;
   if (sessionUser) {
@@ -18,13 +42,16 @@ function Navigation({ isLoaded }) {
       <div className='Navigation'>
         {/* <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink> */}
-        <button className='session-login' type='select'>
-          <i className="fa-solid fa-bars"></i>
+        <button className='session-login' onClick={openMenu}>
+          <i className="fa-solid fa-bars"></i>  
           <i className="fa-solid fa-circle-user"></i>
         </button>
-
-        <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
-        <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
+        {showMenu && (
+        <ul>
+          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
+          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
+        </ul>
+        )}
       </div>
     );
 
@@ -43,7 +70,7 @@ function Navigation({ isLoaded }) {
       </button >
 
       <button className='airbnb-home'>
-        <NavLink exact to="/spots/new" style={{ color: 'black', fontSize: 20, textDecoration: 'none' }}> Airbnb your home </NavLink>
+        <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink>
       </button>
 
       {isLoaded && sessionLinks}

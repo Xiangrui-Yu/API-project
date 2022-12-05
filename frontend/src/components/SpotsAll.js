@@ -41,7 +41,8 @@ export const SpotsAll = () => {
                                     <p>${spot.price} night</p>
 
                                 </div>
-                                <div>
+                                <div className='star-rating'>
+                                    <i className="fa-regular fa-star"></i>
                                     <p>{spot.avgRating}</p>
                                 </div>
                             </div>
