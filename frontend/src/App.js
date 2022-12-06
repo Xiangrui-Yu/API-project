@@ -11,6 +11,10 @@ import{SpotId} from './components/SpotId';
 import {SpotCurUser} from './components/SpotCurUser';
 import {SpotBrowser} from './components/SpotBrowser';
 import {AddSpotImg} from './components/AddSpotImg';
+import {BookingCurUser} from './components/BookingCurUser';
+import {BookingId} from './components/BookingId';
+import {BookingAdd} from './components/BookingAdd';
+
 // import {RemoveSpot} from './components/RemoveSpot';
 
 function App() {
@@ -37,6 +41,19 @@ function App() {
           <Route exact path="/user/spots" >
             <SpotCurUser />
           </Route>
+
+          <Route exact path="/user/bookings" >
+            <BookingCurUser />
+          </Route>
+
+          <Route exact path="/bookings/new" >
+            <BookingAdd />
+          </Route>
+
+          <Route exact path="/bookings/:bookingId" >
+            <BookingId />
+          </Route>
+
           <Route exact path="/spots/new" >
             <SpotBrowser />
           </Route>
@@ -46,11 +63,9 @@ function App() {
           <Route exact path="/spots/:spotId/images" >
             <AddSpotImg />
           </Route>
-
           <Route exact path="/spots/:spotId" >
             <SpotId />
           </Route>
-
 
         </Switch>
       )}
