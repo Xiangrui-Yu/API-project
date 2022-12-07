@@ -43,8 +43,10 @@ function ProfileButton({ user }) {
           <li style={{ color: 'grey', textDecoration: 'none' }}>{user.email}</li>
 
           <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/user/spots">your spots</NavLink></li>
-          <li>
+          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/user/bookings">your bookings</NavLink></li>
 
+
+          <li>
             <button style ={{fontSize:16}} onClick={logout}>Log Out</button>
           </li>
         </ul>

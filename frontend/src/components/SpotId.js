@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { getSpotsId, deleteSpot } from '../store/spot';
 
+
 export const SpotId = () => {
     const { spotId } = useParams();
     const spotData = useSelector(state => {
@@ -52,9 +53,9 @@ export const SpotId = () => {
             </div>
 
             <div className='spot-detail-links'>
-                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/images`}>add images</NavLink>-
+                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/images`}>add images</NavLink>    -
 
-                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/edit`}>edit</NavLink>-
+                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/edit`}>edit-Spot</NavLink> -
 
                 <button style={{ fontSize: 16, color: 'gray' }}
                     onClick={() => {
@@ -62,8 +63,11 @@ export const SpotId = () => {
                         history.push('/')
                     }}
                 >
-                    delete
-                </button>
+                    delete-spot
+                </button> - 
+
+                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/bookings/new`}>make a reservation !</NavLink> - 
+                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/bookings/${spotId}`}>check current reservation !</NavLink> 
             </div>
 
 

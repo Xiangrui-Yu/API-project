@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
-import { getCurUserBooking } from '../store/booking';
+import { getCurUserBooking, deleteBooking } from '../store/booking';
 
-export const BookingCurUser =() => {
+export const BookingCurUser = () => {
     const dispatch = useDispatch();
 
     const allBookingObj = useSelector(state => state?.booking)
@@ -12,18 +12,40 @@ export const BookingCurUser =() => {
 
     console.log(allBookingObj)
 
-    useEffect(() =>{
+    useEffect(() => {
         dispatch(getCurUserBooking())
-    },[dispatch])
+    }, [dispatch])
 
-    if(!allBookings){
+    if (!allBookings) {
         return null
     }
 
     return (
         <>
             {allBookings.map(booking => {
-                return <img key={booking.id} src={booking.Spot.previewImage}></img>
+                return (
+                    <div>
+                        <div>
+                            From: {booking.startDate}
+                            To: {booking.endDate}
+                        </div>
+                        <img className='cur-user-bookings-img' key={booking.id} src={booking.Spot.previewImage}></img>
+
+                        <button
+                        style={{ fontSize: 16, color: 'red' }}
+                        onClick={() => {
+                            dispatch(deleteBooking(booking.id))
+                        }}
+                    >
+                        delete reservation!
+
+                    </button>
+                    </div>
+                )
+
+
+
+
             })}
         </>
     )

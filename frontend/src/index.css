@@ -96,3 +96,9 @@
     flex-direction: column;
     justify-content: left;
 }
+
+
+.cur-user-bookings-img{
+    width:200px;
+    height:200px
+}
