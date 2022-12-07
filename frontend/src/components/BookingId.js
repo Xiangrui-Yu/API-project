@@ -4,18 +4,24 @@ import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { getBookingId } from '../store/booking';
 
 export const BookingId = () => {
-    const { bookingId } = useParams();
+    const { spotId } = useParams();
 
-    const bookingDataObj = useSelector(state => state?.booking)
+    const bookingDataObj = useSelector(state => {
+        return state?.booking
+    })
+
+    // console.log(bookingDataObj)
 
     const bookingData = Object.values(bookingDataObj)
 
+    console.log(bookingData)
+
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
 
     useEffect(() => {
-        dispatch(getBookingId(bookingId))
+        dispatch(getBookingId(spotId))
     }, [dispatch])
 
     if (!bookingData) {
@@ -25,14 +31,10 @@ export const BookingId = () => {
     return (
         <div>
             {bookingData.map(booking => {
-                return <div>
-                    <ul>
-                        <li key={booking.id && booking.startDate}>{booking.startDate}</li>
-                        <li key={booking.id && booking.endDate}>{booking.endDate}</li>
-
-                    </ul>
-
-                </div>
+                return <>
+                    <div>startDate {booking.startDate}</div>
+                    <div>endDate {booking.endDate}</div>
+                </>
             })}
         </div>
     )

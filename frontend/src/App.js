@@ -13,7 +13,8 @@ import {SpotBrowser} from './components/SpotBrowser';
 import {AddSpotImg} from './components/AddSpotImg';
 import {BookingCurUser} from './components/BookingCurUser';
 import {BookingId} from './components/BookingId';
-import {BookingAdd} from './components/BookingAdd';
+import { BookingAdd } from "./components/BookingAdd";
+import DemoPage from './components/LoginFormPage/Demo';
 
 // import {RemoveSpot} from './components/RemoveSpot';
 
@@ -32,6 +33,11 @@ function App() {
           <Route path="/login">
             <LoginFormPage />
           </Route>
+
+          <Route path="/demo">
+            <DemoPage />
+          </Route>
+
           <Route path="/signup">
             <SignupFormPage />
           </Route>
@@ -46,23 +52,27 @@ function App() {
             <BookingCurUser />
           </Route>
 
-          <Route exact path="/bookings/new" >
-            <BookingAdd />
-          </Route>
-
-          <Route exact path="/bookings/:bookingId" >
+          <Route exact path="/bookings/:spotId" >
             <BookingId />
           </Route>
 
           <Route exact path="/spots/new" >
             <SpotBrowser />
           </Route>
+
+          <Route exact path="/spots/:spotId/bookings/new" >
+            <BookingAdd />
+          </Route>
+
           <Route exact path="/spots/:spotId/edit" >
             <SpotBrowser />
           </Route>
           <Route exact path="/spots/:spotId/images" >
             <AddSpotImg />
           </Route>
+
+
+
           <Route exact path="/spots/:spotId" >
             <SpotId />
           </Route>

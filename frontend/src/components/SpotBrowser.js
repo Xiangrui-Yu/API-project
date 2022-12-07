@@ -55,7 +55,6 @@ export const SpotBrowser = () => {
         };
         if (spotId) {
 
-
             let editNewSpot = await dispatch(editSpot(payload, spotId))
 
             if (editNewSpot) {

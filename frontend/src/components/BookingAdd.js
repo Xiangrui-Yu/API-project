@@ -6,7 +6,11 @@ import { addSpotBooking } from '../store/booking';
 export const BookingAdd = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { spotId } = useParams;
+    const { spotId } = useParams();
+
+    const checkstate = useSelector(state=>state.booking);
+
+    console.log('check state', checkstate)
 
 
     const [startDate, setStartDate] = useState('');
@@ -26,7 +30,7 @@ export const BookingAdd = () => {
         const payload = {
             startDate,
             endDate
-        }
+         }
 
         let createDates;
         try {
@@ -72,17 +76,6 @@ export const BookingAdd = () => {
             >
                 book it!
             </button>
-
-
-
-
-
-
-
-
-
-
-
 
         </form>
 

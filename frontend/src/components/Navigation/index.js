@@ -50,6 +50,7 @@ function Navigation({ isLoaded }) {
         <ul>
           <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
           <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
+          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/demo">demo-user</NavLink></li>
         </ul>
         )}
       </div>
@@ -68,6 +69,7 @@ function Navigation({ isLoaded }) {
         <NavLink exact to="/" style={{ color: 'red', fontSize: 20, textDecoration: 'none' }}> airbnb </NavLink>
 
       </button >
+
 
       <button className='airbnb-home'>
         <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink>

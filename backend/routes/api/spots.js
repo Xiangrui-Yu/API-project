@@ -524,7 +524,7 @@ router.get('/:spotId/bookings',requireAuth, async(req,res,next) =>{
 
     console.log(userId,spotId)
 
-    const bookings = await Booking.findOne({
+    const bookings = await Booking.findAll({
         where:{
             spotId:spotId
         },
@@ -544,21 +544,21 @@ router.get('/:spotId/bookings',requireAuth, async(req,res,next) =>{
           })
     }
 
-    const newBookings = bookings.toJSON();
+    // const newBookings = bookings.toJSON();
     
-    if(userId === newBookings.userId) {
+    if(userId === bookings.userId) {
         res.json({
-            Bookings:[newBookings]
+            Bookings:bookings
         })
     }else{
-        delete newBookings.User;
-        delete newBookings.id;
-        delete newBookings.userId;
-        delete newBookings.createdAt;
-        delete newBookings.updatedAt;
+        delete bookings.User;
+        // delete bookings.id;
+        delete bookings.userId;
+        delete bookings.createdAt;
+        delete bookings.updatedAt;
 
         res.json({
-            Bookings:[newBookings]
+            Bookings:bookings
         })
     }
 
