@@ -139,13 +139,12 @@ const spotReducer = (state = {}, action) => {
             action.data.Spots.forEach((spot) => {
                 allSpots[spot.id] = spot
             });
-            return {
-                ...allSpots,
-                ...state
-            };
+            return allSpots
+                
+            ;
 
         case LOAD_ID: {
-            const newState = { ...state };
+            const newState = { };
             newState.spot = action.spotData;
             return newState;
         };
@@ -154,10 +153,7 @@ const spotReducer = (state = {}, action) => {
             action.curData.Spots.forEach(spot => {
                 spots[spot.id] = spot
             });
-            return {
-                ...spots,
-                ...state
-            }
+            return spots
         }
         case UPDATE_SPOTS:
         case ADD_SPOTS:{

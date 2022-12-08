@@ -1,54 +1,68 @@
-.Navigation{
+.Navigation {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom:solid;
-    border-color:ghostwhite
-
+    border-bottom: solid;
+    border-color: ghostwhite
 }
 
-.homebutton{
+.homebutton {
     position: relative;
-    left:20px;
+    left: 20px;
 
-    
+
 }
 
 button {
-    border:0;
-    background:none;
+    border: 0;
+    background: none;
     cursor: pointer;
-    color:rgb(208, 87, 87);
+    color: rgb(208, 87, 87);
     font-size: 25px;
 
 
 }
 
 .session-login {
+    width: 90px;
+    height: 45px;
+    background: whitesmoke;
+    border-style: solid;
+    border-radius: 50%;
     display: flex;
     justify-content: right;
     text-decoration: none;
-    color:rgb(105, 101, 101);
-    right:80px;
-    top:20px
-    
+    color: rgb(105, 101, 101);
+    right: 80px;
+    top: 20px
 }
 
-.airbnb-home{
-    display:block;
+.airbnb-home {
     text-align: right;
     font-size: 4px;
-    margin-top: 60px;
-    margin:3px;
-    position:absolute;
-    right:250px
-    
+    margin-top:10px;
+    position: absolute;
+    right: 200px
 }
 
 ul {
-    list-style:none;
+    list-style: none;
 }
 
 i {
-    margin:3px
+    
+    margin-top:8px;
+    margin-right:5px
+
+}
+
+.login-dropdown{
+    position:relative;
+    display: inline-block;
+   
+}
+
+.profile-dropdown {
+    position:relative;
+    display: inline-block;
 }

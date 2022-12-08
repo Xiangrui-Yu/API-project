@@ -39,19 +39,19 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <div className='Navigation'>
+      <div>
         {/* <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink> */}
         <button className='session-login' onClick={openMenu}>
-          <i className="fa-solid fa-bars"></i>  
+          <i className="fa-solid fa-bars"></i>
           <i className="fa-solid fa-circle-user"></i>
         </button>
         {showMenu && (
-        <ul>
-          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
-          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
-          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/demo">demo-user</NavLink></li>
-        </ul>
+          <ul className='login-dropdown'>
+            <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
+            <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
+            <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/demo">demo-user</NavLink></li>
+          </ul>
         )}
       </div>
     );
@@ -67,15 +67,17 @@ function Navigation({ isLoaded }) {
       <button className='homebutton' >
         <i className="fa-brands fa-airbnb"></i>
         <NavLink exact to="/" style={{ color: 'red', fontSize: 20, textDecoration: 'none' }}> airbnb </NavLink>
-
       </button >
 
+      <div>
+        <button className='airbnb-home'>
+          <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink>
+        </button>
 
-      <button className='airbnb-home'>
-        <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink>
-      </button>
+        {isLoaded && sessionLinks}
 
-      {isLoaded && sessionLinks}
+      </div>
+
     </div>
   );
 }

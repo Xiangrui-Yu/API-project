@@ -29,8 +29,8 @@ export const SpotBrowser = () => {
         if (city.length === 0) validation.push('city field is required')
         if (state.length === 0) validation.push('state.length ===0')
         if (country.length === 0) validation.push('country field is required')
-        // if (lat.length === 0) validation.push('lat field is required')
-        // if (lng.length === 0) validation.push('lng field is required')
+        if (lat.length === 0) validation.push('lat field is required')
+        if (lng.length === 0) validation.push('lng field is required')
         if (name.length === 0) validation.push('name field is required')
         if (description.length === 0) validation.push('description field is required')
         if (price.length === 0) validation.push('price field is required')
@@ -90,8 +90,9 @@ export const SpotBrowser = () => {
                 <input
                     type='text'
                     name='address'
-                    onChange={e => setAddress(e.target.value)}
                     value={address}
+                    onChange={e => setAddress(e.target.value)}
+                    required
                 />
             </label>
             <label>
@@ -101,6 +102,7 @@ export const SpotBrowser = () => {
                     name='city'
                     onChange={e => setCity(e.target.value)}
                     value={city}
+                    required
                 />
             </label>
             <label>
@@ -110,6 +112,7 @@ export const SpotBrowser = () => {
                     name='state'
                     onChange={e => setState(e.target.value)}
                     value={state}
+                    required
                 />
             </label>
             <label>
@@ -119,15 +122,17 @@ export const SpotBrowser = () => {
                     name='country'
                     onChange={e => setCountry(e.target.value)}
                     value={country}
+                    required
                 />
             </label>
-            {/* <label>
+            <label>
                 Lat
                 <input
                     type='number'
                     name='lat'
                     onChange={e => setLat(e.target.value)}
                     value={lat}
+                    required
                 />
             </label>
             <label>
@@ -137,8 +142,9 @@ export const SpotBrowser = () => {
                     name='lng'
                     onChange={e => setLng(e.target.value)}
                     value={lng}
+                    required
                 />
-            </label> */}
+            </label>
             <label>
                 Name
                 <input
@@ -146,6 +152,7 @@ export const SpotBrowser = () => {
                     name='name'
                     onChange={e => setName(e.target.value)}
                     value={name}
+                    required
                 />
             </label>
             <label>
@@ -155,6 +162,7 @@ export const SpotBrowser = () => {
                     name='description'
                     onChange={e => setDescription(e.target.value)}
                     value={description}
+                    required
                 />
             </label>
             <label>
@@ -164,6 +172,7 @@ export const SpotBrowser = () => {
                     name='price'
                     onChange={e => setPrice(e.target.value)}
                     value={price}
+                    required
                 />
             </label>
             <button
