@@ -186,14 +186,12 @@ router.delete('/:bookingId',requireAuth,async(req,res,next) => {
 
     let today = new Date();
     let day = today.getDate();
-    let month = today.getMonth() +1;
+    let month = today.getMonth();
     let year = today.getFullYear();
 
     let currentDate = `${year}-${month}-${day}`
 
     const startDate = theBooking.startDate
-
-    console.log(startDate);
 
     if(currentDate > startDate){
         res.status(403)

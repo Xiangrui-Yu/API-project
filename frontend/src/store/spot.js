@@ -31,9 +31,10 @@ const addImg = (image) => ({
     type: ADD_IMG,
     image,
 });
-const updateSpot = (spot ) =>({
+const updateSpot = (spot) =>({
     type:UPDATE_SPOTS,
     spot
+    
 })
 
 const removeSpot = (spotId) => ({
@@ -100,8 +101,8 @@ export const addNewImg = (image,spotId) => async dispatch => {
 
 }
 
-export const editSpot = (editData,editId) => async dispatch =>{
-    const res = await csrfFetch(`/api/spots/${editId}`,{
+export const editSpot = (editData,spotId) => async dispatch =>{
+    const res = await csrfFetch(`/api/spots/${spotId}`,{
         method:'put',
         headers:{
             'Content-Type':'application/json'
@@ -122,8 +123,8 @@ export const deleteSpot = (spotId) => async dispatch => {
         method:'delete'
     });
     if(res.ok) {
-        const {id:deletedSpotId} = await res.json();
-        dispatch(removeSpot(deletedSpotId));
+        // const {id:deletedSpotId} = await res.json();
+        dispatch(removeSpot(spotId));
         
     }
 }
@@ -144,7 +145,7 @@ const spotReducer = (state = {}, action) => {
             ;
 
         case LOAD_ID: {
-            const newState = { };
+            const newState = {};
             newState.spot = action.spotData;
             return newState;
         };
@@ -155,7 +156,13 @@ const spotReducer = (state = {}, action) => {
             });
             return spots
         }
-        case UPDATE_SPOTS:
+        case UPDATE_SPOTS:{
+            const newState = {...state};
+            newState[action.spot.id] = action.spot;
+            console.log('action.spot',action.spot.id)
+            return newState
+            
+        }
         case ADD_SPOTS:{
             const newState = {...state};
             newState[action.spot.id] = action.spot;
@@ -172,7 +179,7 @@ const spotReducer = (state = {}, action) => {
             newState[action.image.id] = action.image;
             return newState
         }
-        case removeSpot:{
+        case REMOVE_SPOTS:{
             const newState = {...state};
             delete newState[action.spotId];
             return newState

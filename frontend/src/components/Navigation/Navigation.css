@@ -7,6 +7,7 @@
 }
 
 .homebutton {
+    border:0;
     position: relative;
     left: 20px;
 
@@ -14,7 +15,7 @@
 }
 
 button {
-    border: 0;
+    /* border: 0; */
     background: none;
     cursor: pointer;
     color: rgb(208, 87, 87);
@@ -24,6 +25,7 @@ button {
 }
 
 .session-login {
+    border:0;
     width: 90px;
     height: 45px;
     background: whitesmoke;
@@ -38,6 +40,7 @@ button {
 }
 
 .airbnb-home {
+    border:0;
     text-align: right;
     font-size: 4px;
     margin-top:10px;

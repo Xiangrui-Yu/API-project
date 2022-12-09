@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Route, useParams } from 'react-router-dom';
-import { getCurUserSpot } from '../store/spot';
+import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
+import { getCurUserSpot, deleteSpot } from '../store/spot';
 
 export const SpotCurUser = () => {
     const dispatch = useDispatch();
@@ -10,6 +10,7 @@ export const SpotCurUser = () => {
 
 
     const allSpots = Object.values(allSpotsObj);
+    const history = useHistory();
 
     console.log('allSpots', allSpots)
 
@@ -25,16 +26,32 @@ export const SpotCurUser = () => {
         <div className='cur-user-spot-container'>
 
             {allSpots.map(spot => {
-                return <>
-                    <img className='cur-spot-img' key={spot.id} src={spot.previewImage}></img>
-                    <ul className='cur-Spot-info'>
-                        <li key={spot.id}>Id: {spot.id}</li>
-                        <li key={spot.id}>city: {spot.city}</li>
-                        <li key={spot.id}>state:  {spot.state}</li>
-                        <li key={spot.id}>country: {spot.country}</li>
-                        <li key={spot.id}>price: ${spot.price}</li>
-                    </ul>
-                </>
+                return (
+                    <>
+                        <a href={`/spots/${spot.id}`}>
+
+                            <img className='cur-spot-img' key={spot.id} src={spot.previewImage}></img>
+                            <ul className='cur-Spot-info'>
+                                <li key={spot.city}>city: {spot.city}</li>
+                                <li key={spot.state}>state:  {spot.state}</li>
+                                <li key={spot.country}>country: {spot.country}</li>
+                                <li key={spot.price}>price: ${spot.price}</li>
+                            </ul>
+                        </a>
+                        <div className='cur-spot-buttons'>
+                            <button style={{ fontSize: 16, color: 'gray' }}
+                                onClick={() => {
+                                    dispatch(deleteSpot(spot.id))
+                                    history.push('/user/spots')
+                                }}
+                            >
+                                delete-spot
+                            </button>
+                            <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.id}/edit`}>edit-Spot</NavLink> -
+                            <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.Id}/images`}>add images</NavLink>    -
+                        </div>
+                    </>
+                )
             })}
 
 

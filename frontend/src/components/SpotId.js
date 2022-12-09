@@ -10,7 +10,6 @@ export const SpotId = () => {
         // console.log('this is state',state)
         return state.spot
     })
-    // console.log('this is spotData',spotData)
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -53,10 +52,10 @@ export const SpotId = () => {
             </div>
 
             <div className='spot-detail-links'>
-                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/images`}>add images</NavLink>    -
+                {/* <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/images`}>add images</NavLink>    - */}
 
-                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/edit`}>edit-Spot</NavLink> -
-
+                {/* <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/edit`}>edit-Spot</NavLink> - */}
+{/* 
                 <button style={{ fontSize: 16, color: 'gray' }}
                     onClick={() => {
                         dispatch(deleteSpot(spotId))
@@ -64,7 +63,7 @@ export const SpotId = () => {
                     }}
                 >
                     delete-spot
-                </button> - 
+                </button> -  */}
 
                 <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/bookings/new`}>make a reservation !</NavLink> - 
                 <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/bookings/${spotId}`}>check current reservation !</NavLink> 

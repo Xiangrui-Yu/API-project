@@ -55,6 +55,8 @@ export const addSpotBooking =(dateInfo,spotId) => async dispatch =>{
         },
         body:JSON.stringify(dateInfo)
     });
+    
+    
     if(res.ok){
         const booking = await res.json();
         dispatch(addBooking(booking))
@@ -67,8 +69,9 @@ export const deleteBooking = (bookingId) => async dispatch => {
         method:'delete'
     })
     if(res.ok) {
-        const {id: deletedBookingId} = await res.json();
-        dispatch(removeBooking(deletedBookingId))
+        // const {id:deletedSpotId} = await res.json();
+
+        dispatch(removeBooking(bookingId))
     }
 }
 
@@ -80,10 +83,8 @@ const bookReducer = (state ={}, action) => {
                 allBookings[booking.id] = booking
             });
 
-            return {
-                ...allBookings
-                
-            }
+            return allBookings
+
         case GET_BOOKINGS_ID:
             const bookings = {};
             console.log('action.data', action.data)
@@ -103,9 +104,9 @@ const bookReducer = (state ={}, action) => {
             return newState
         }     
 
-        case removeBooking:{
+        case REMOVE_BOOKINGS:{
             const newState = {...state};
-            delete newState [action.bookingId]
+            delete newState[action.bookingId]
             return newState
         }
 

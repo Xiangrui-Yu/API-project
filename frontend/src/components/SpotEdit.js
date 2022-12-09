@@ -1,25 +1,34 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
-import { addNewSpot, editSpot } from '../store/spot';
+import { editSpot } from '../store/spot';
 
-
-
-export const SpotBrowser = () => {
+export const SpotEdit = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { spotId } = useParams()
 
+    const body = useSelector(state => {
+        console.log('state', state)
+        return state?.spot[spotId]
+    });
 
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [lat, setLat] = useState('');
-    const [lng, setLng] = useState('');
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
+    // const body = Object.values(bodyObj)
+    // console.log('body', body)
+
+    const { address, city, state, country, lat, lng, name, description, price } = body
+
+    console.log(address)
+
+    const [addressnew, setAddress] = useState(address);
+    const [citynew, setCity] = useState(city);
+    const [statenew, setState] = useState(state);
+    const [countrynew, setCountry] = useState(country);
+    const [latnew, setLat] = useState(lat);
+    const [lngnew, setLng] = useState(lng);
+    const [namenew, setName] = useState(name);
+    const [descriptionnew, setDescription] = useState(description);
+    const [pricenew, setPrice] = useState(price);
 
     const [errors, setError] = useState([]);
 
@@ -42,36 +51,24 @@ export const SpotBrowser = () => {
         e.preventDefault();
 
         const payload = {
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            description,
-            price
+            address:addressnew,
+            city:citynew,
+            state:statenew,
+            country:countrynew,
+            lat:latnew,
+            lng:lngnew,
+            name:namenew,
+            description:descriptionnew,
+            price:pricenew
 
         };
-        if (spotId) {
 
-            let editNewSpot = await dispatch(editSpot(payload, spotId))
+        let editNewSpot = await dispatch(editSpot(payload, spotId))
 
-            if (editNewSpot) {
-                history.push(`/spots/${spotId}`)
-            }
-        } else {
-            let createNewSpot;
-            try {
-                createNewSpot = await dispatch(addNewSpot(payload));
-            } catch (error) {
-                throw new Error('something is wrong with creating a spot')
-            }
-
-            if (createNewSpot) {
-                history.push('/user/spots')
-            }
+        if (editNewSpot) {
+            history.push(`/user/spots`)
         }
+
 
     }
     return (
@@ -90,7 +87,7 @@ export const SpotBrowser = () => {
                 <input
                     type='text'
                     name='address'
-                    value={address}
+                    value={addressnew}
                     onChange={e => setAddress(e.target.value)}
                     required
                 />
@@ -101,7 +98,7 @@ export const SpotBrowser = () => {
                     type='text'
                     name='city'
                     onChange={e => setCity(e.target.value)}
-                    value={city}
+                    value={citynew}
                     required
                 />
             </label>
@@ -111,7 +108,7 @@ export const SpotBrowser = () => {
                     type='text'
                     name='state'
                     onChange={e => setState(e.target.value)}
-                    value={state}
+                    value={statenew}
                     required
                 />
             </label>
@@ -121,7 +118,7 @@ export const SpotBrowser = () => {
                     type='text'
                     name='country'
                     onChange={e => setCountry(e.target.value)}
-                    value={country}
+                    value={countrynew}
                     required
                 />
             </label>
@@ -131,7 +128,7 @@ export const SpotBrowser = () => {
                     type='number'
                     name='lat'
                     onChange={e => setLat(e.target.value)}
-                    value={lat}
+                    value={latnew}
                     required
                 />
             </label>
@@ -141,7 +138,7 @@ export const SpotBrowser = () => {
                     type='number'
                     name='lng'
                     onChange={e => setLng(e.target.value)}
-                    value={lng}
+                    value={lngnew}
                     required
                 />
             </label>
@@ -151,7 +148,7 @@ export const SpotBrowser = () => {
                     type='text'
                     name='name'
                     onChange={e => setName(e.target.value)}
-                    value={name}
+                    value={namenew}
                     required
                 />
             </label>
@@ -161,7 +158,7 @@ export const SpotBrowser = () => {
                     type='text'
                     name='description'
                     onChange={e => setDescription(e.target.value)}
-                    value={description}
+                    value={descriptionnew}
                     required
                 />
             </label>
@@ -171,14 +168,14 @@ export const SpotBrowser = () => {
                     type='number'
                     name='price'
                     onChange={e => setPrice(e.target.value)}
-                    value={price}
+                    value={pricenew}
                     required
                 />
             </label>
             <button
                 type='submit'
                 disabled={errors.length > 0}
-                style={{fontSize:16}}
+                style={{ fontSize: 16 }}
             >
                 Submit
             </button>
@@ -186,4 +183,3 @@ export const SpotBrowser = () => {
         </form >
     )
 }
-

@@ -1,9 +1,14 @@
 // frontend/src/components/Navigation/index.js
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+// demo-user code
+import * as sessionActions from '../../store/session';
+import { useHistory } from 'react-router-dom';
+// demo-user code
+
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -31,6 +36,15 @@ function Navigation({ isLoaded }) {
 
   // above is testing code
 
+  // demo user code
+  const dispatch = useDispatch();
+  const credential = 'demo@user.io'
+  const password = 'password'
+  const history = useHistory()
+  // demo user code
+
+
+
 
   let sessionLinks;
   if (sessionUser) {
@@ -50,7 +64,16 @@ function Navigation({ isLoaded }) {
           <ul className='login-dropdown'>
             <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
             <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
-            <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/demo">demo-user</NavLink></li>
+            
+            <button style={{ fontSize: 16 }} type="button"
+              onClick={() => {
+                dispatch(sessionActions.demoUser({ credential, password }))
+                history.push('/')
+              }}
+            >Demo-User</button>
+
+
+            {/* <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/demo">demo-user</NavLink></li> */}
           </ul>
         )}
       </div>

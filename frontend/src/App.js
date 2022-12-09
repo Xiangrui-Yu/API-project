@@ -14,7 +14,7 @@ import {AddSpotImg} from './components/AddSpotImg';
 import {BookingCurUser} from './components/BookingCurUser';
 import {BookingId} from './components/BookingId';
 import { BookingAdd } from "./components/BookingAdd";
-import DemoPage from './components/LoginFormPage/Demo';
+import {SpotEdit} from './components/SpotEdit'
 
 // import {RemoveSpot} from './components/RemoveSpot';
 
@@ -32,10 +32,6 @@ function App() {
         <Switch>
           <Route path="/login">
             <LoginFormPage />
-          </Route>
-
-          <Route path="/demo">
-            <DemoPage />
           </Route>
 
           <Route path="/signup">
@@ -65,12 +61,12 @@ function App() {
           </Route>
 
           <Route exact path="/spots/:spotId/edit" >
-            <SpotBrowser />
+            <SpotEdit />
           </Route>
+
           <Route exact path="/spots/:spotId/images" >
             <AddSpotImg />
           </Route>
-
 
 
           <Route exact path="/spots/:spotId" >

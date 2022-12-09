@@ -22,14 +22,15 @@ function LoginFormPage() {
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        if (data) setErrors([data]);
       });
   }
-
   return (
     <form className='login-form' onSubmit={handleSubmit}>
       <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        {errors.map((error, idx) => {
+         return <li key={idx}>{error.message}</li>
+        })}
       </ul>
       <label>
         Username or Email

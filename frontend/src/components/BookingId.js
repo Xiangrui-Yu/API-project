@@ -37,7 +37,7 @@ export const BookingId = () => {
                 return <>
                     <div>startDate: {booking.startDate}</div>
                     <div>endDate:  {booking.endDate}</div>
-                    <button
+                    {/* <button
                         style={{ fontSize: 16, color: 'red' }}
                         onClick={() => {
                             dispatch(deleteBooking(booking.id))
@@ -45,7 +45,7 @@ export const BookingId = () => {
                     >
                         delete reservation!
 
-                    </button>
+                    </button> */}
                 </>
             })}
         </div>

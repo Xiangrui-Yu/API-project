@@ -5,12 +5,14 @@ import { getCurUserBooking, deleteBooking } from '../store/booking';
 
 export const BookingCurUser = () => {
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState([]);
+
 
     const allBookingObj = useSelector(state => state?.booking)
 
     const allBookings = Object.values(allBookingObj);
 
-    console.log(allBookingObj)
+    // console.log(allBookingObj)
 
     useEffect(() => {
         dispatch(getCurUserBooking())
@@ -19,34 +21,51 @@ export const BookingCurUser = () => {
     if (!allBookings) {
         return null
     }
-
+    console.log('errors above return', errors)
     return (
         <>
-            {allBookings.map(booking => {
-                return (
-                    <div>
-                        <div>
-                            From: {booking.startDate}
-                            To: {booking.endDate}
+            <div className='BookingCurUser-error'>
+                {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
+
+            </div>
+
+            <div>
+                {allBookings.map((booking) => {
+                    return (
+                        <div className='BookingCurUser-info'>
+                            <div>
+                                {booking.Spot.previewImage && <img className='cur-user-bookings-img' key={booking.id} src={booking.Spot.previewImage}></img> }
+
+                            </div>
+                            
+
+                            <div>
+                                From: {booking.startDate}
+                                To: {booking.endDate}
+
+                            </div>
+
+                            <button
+                                className='BookingCurUser-cancelButton'
+                                style={{ fontSize: 16, color: 'red' }}
+                                onClick={() => {
+                                    setErrors([]);
+                                    const errorRes = dispatch(deleteBooking(booking.id)).catch(async (res) => {
+                                        const error = await res.json();
+                                        if (error) setErrors([error.message])
+                                    })
+                                }}
+
+                            >
+                                cancel
+                            </button>
                         </div>
-                        <img className='cur-user-bookings-img' key={booking.id} src={booking.Spot.previewImage}></img>
+                    )
 
-                        <button
-                        style={{ fontSize: 16, color: 'red' }}
-                        onClick={() => {
-                            dispatch(deleteBooking(booking.id))
-                        }}
-                    >
-                        delete reservation!
+                })}
 
-                    </button>
-                    </div>
-                )
+            </div>
 
-
-
-
-            })}
         </>
     )
 }
