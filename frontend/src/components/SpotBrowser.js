@@ -21,7 +21,7 @@ export const SpotBrowser = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
 
-    const [errors, setError] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     // useEffect(() => {
     //     const validation = [];
@@ -53,25 +53,21 @@ export const SpotBrowser = () => {
             price
 
         };
-        if (spotId) {
 
-            let editNewSpot = await dispatch(editSpot(payload, spotId))
+        let createNewSpot;
 
-            if (editNewSpot) {
-                history.push(`/spots/${spotId}`)
-            }
-        } else {
-            let createNewSpot;
-            try {
-                createNewSpot = await dispatch(addNewSpot(payload));
-            } catch (error) {
-                throw new Error('something is wrong with creating a spot')
-            }
+        createNewSpot = await dispatch(addNewSpot(payload)).catch(async (res) => {
+            setErrors([])
+            const error = await res.json();
+            console.log(error)
+            if (error) setErrors([error])
+        });
 
-            if (createNewSpot) {
-                history.push('/user/spots')
-            }
+
+        if (createNewSpot) {
+            history.push('/user/spots')
         }
+
 
     }
     return (
@@ -79,6 +75,10 @@ export const SpotBrowser = () => {
             className='spot-form'
             onSubmit={handleSubmit}
         >
+            <div className='BookingAdd-error'>
+                {errors?.map((error, idx) => <li key={idx}>{error.message}</li>)}
+
+            </div>
             <h2></h2>
             {/* <ul className='errors'>
                 {errors.map(error => {
@@ -176,9 +176,10 @@ export const SpotBrowser = () => {
                 />
             </label>
             <button
+                className='SpotBroweer-submit'
                 type='submit'
                 disabled={errors.length > 0}
-                style={{fontSize:16}}
+                style={{ fontSize: 16 }}
             >
                 Submit
             </button>

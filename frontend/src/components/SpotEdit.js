@@ -18,7 +18,6 @@ export const SpotEdit = () => {
 
     const { address, city, state, country, lat, lng, name, description, price } = body
 
-    console.log(address)
 
     const [addressnew, setAddress] = useState(address);
     const [citynew, setCity] = useState(city);
@@ -30,40 +29,33 @@ export const SpotEdit = () => {
     const [descriptionnew, setDescription] = useState(description);
     const [pricenew, setPrice] = useState(price);
 
-    const [errors, setError] = useState([]);
+    const [errors, setErrors] = useState([]);
 
-    // useEffect(() => {
-    //     const validation = [];
-    //     if (address.length === 0) validation.push('address field is required')
-    //     if (city.length === 0) validation.push('city field is required')
-    //     if (state.length === 0) validation.push('state.length ===0')
-    //     if (country.length === 0) validation.push('country field is required')
-    //     if (lat.length === 0) validation.push('lat field is required')
-    //     if (lng.length === 0) validation.push('lng field is required')
-    //     if (name.length === 0) validation.push('name field is required')
-    //     if (description.length === 0) validation.push('description field is required')
-    //     if (price.length === 0) validation.push('price field is required')
 
-    //     setError(validation)
-    // }, [address, city, state, country, lat, lng, name, description, price])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const payload = {
-            address:addressnew,
-            city:citynew,
-            state:statenew,
-            country:countrynew,
-            lat:latnew,
-            lng:lngnew,
-            name:namenew,
-            description:descriptionnew,
-            price:pricenew
+            address: addressnew,
+            city: citynew,
+            state: statenew,
+            country: countrynew,
+            lat: latnew,
+            lng: lngnew,
+            name: namenew,
+            description: descriptionnew,
+            price: pricenew
 
         };
 
-        let editNewSpot = await dispatch(editSpot(payload, spotId))
+        let editNewSpot = await dispatch(editSpot(payload, spotId)).catch(async (res) => {
+            setErrors([])
+            const error = await res.json();
+            if (error) setErrors([error])
+        })
+
+        console.log(errors)
 
         if (editNewSpot) {
             history.push(`/user/spots`)
@@ -76,6 +68,11 @@ export const SpotEdit = () => {
             className='spot-form'
             onSubmit={handleSubmit}
         >
+            <div className='BookingAdd-error'>
+                {errors?.map((error, idx) => <li key={idx}>{error.message}</li>)}
+
+            </div>
+
             <h2></h2>
             {/* <ul className='errors'>
                 {errors.map(error => {
@@ -173,6 +170,7 @@ export const SpotEdit = () => {
                 />
             </label>
             <button
+                className='SpotEdit-button'
                 type='submit'
                 disabled={errors.length > 0}
                 style={{ fontSize: 16 }}
