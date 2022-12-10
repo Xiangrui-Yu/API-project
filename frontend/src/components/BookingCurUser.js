@@ -12,7 +12,7 @@ export const BookingCurUser = () => {
 
     const allBookings = Object.values(allBookingObj);
 
-    // console.log(allBookingObj)
+    console.log('allBookingObj',allBookings)
 
     useEffect(() => {
         dispatch(getCurUserBooking())
@@ -26,7 +26,6 @@ export const BookingCurUser = () => {
         <>
             <div className='BookingCurUser-error'>
                 {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
-
             </div>
 
             <div>
@@ -35,8 +34,8 @@ export const BookingCurUser = () => {
                         <div className='BookingCurUser-info'>
                             <div>
                                 {booking.Spot.previewImage && <img className='cur-user-bookings-img' key={booking.id} src={booking.Spot.previewImage}></img>}
-
                             </div>
+
 
 
                             <div className='BookingCurUser-dates'>

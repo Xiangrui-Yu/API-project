@@ -29,20 +29,31 @@ export const SpotId = () => {
                 {spotData?.spot?.name}
             </div>
             <div className='rest-information'>
-                <i className="fa-regular fa-star"></i>
-                {spotData?.spot?.avgStartRating} -
-                {spotData?.spot?.numReviews} -
-                {spotData?.spot?.city} -
-                {spotData?.spot?.state} -
-                {spotData?.spot?.country}
+                <div>
+                    <i className="fa-regular fa-star"></i>
+                    {spotData?.spot?.avgStartRating}.
+
+                    #{spotData?.spot?.numReviews}reviews
+                </div>
+
+                <div>
+                    {spotData?.spot?.city},
+                    {spotData?.spot?.state},
+                    {spotData?.spot?.country}
+                </div>
+
             </div>
+            <div className='SpotID-image-grid'>
+                <div className='firstImage-container'>
+                    <img className='first-spotImage' key={spotData?.spot?.id} src={spotData?.spot?.SpotImages[0]?.url}></img>
 
-            <img className='first-spotImage' key={spotData?.spot?.id} src={spotData?.spot?.SpotImages[0]?.url}></img>
+                </div>
 
-            <div className='spotImage-container'>
-                {spotData?.spot?.SpotImages.slice(1).map(image => {
-                    return <img className='spotImage' key={image.id} src={image.url}></img>
-                })}
+                <div className='spotImage-container'>
+                    {spotData?.spot?.SpotImages.slice(1).map(image => {
+                        return <img className='spotImage' key={image.id} src={image.url}></img>
+                    })}
+                </div>
 
             </div>
 
@@ -52,21 +63,10 @@ export const SpotId = () => {
             </div>
 
             <div className='spot-detail-links'>
-                {/* <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/images`}>add images</NavLink>    - */}
 
-                {/* <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/edit`}>edit-Spot</NavLink> - */}
-{/* 
-                <button style={{ fontSize: 16, color: 'gray' }}
-                    onClick={() => {
-                        dispatch(deleteSpot(spotId))
-                        history.push('/')
-                    }}
-                >
-                    delete-spot
-                </button> -  */}
 
-                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/bookings/new`}>make a reservation !</NavLink> - 
-                <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/bookings/${spotId}`}>check current reservation !</NavLink> 
+                <NavLink className='SpotId-makereservation' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/bookings/new`}>make a reservation !</NavLink> 
+                <NavLink className='SpotId-checkreservation' style={{ color: 'grey', textDecoration: 'none' }} to={`/bookings/${spotId}`}>check current reservation !</NavLink>
             </div>
 
 

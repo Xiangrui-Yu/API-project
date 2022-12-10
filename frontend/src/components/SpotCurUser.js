@@ -5,6 +5,8 @@ import { getCurUserSpot, deleteSpot } from '../store/spot';
 
 export const SpotCurUser = () => {
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState([])
+
 
     const allSpotsObj = useSelector(state => state?.spot)
 
@@ -23,32 +25,43 @@ export const SpotCurUser = () => {
     }
 
     return (
-        <div className='cur-user-spot-container'>
+        <div className='SpotCurUser-container'>
 
-            {allSpots.map(spot => {
+            {allSpots.map((spot) => {
                 return (
                     <>
-                        <a href={`/spots/${spot.id}`}>
+                        <div className='BookingAdd-error'>
+                            {errors?.map((error, idx) => <li key={idx}>{error.message}</li>)}
 
-                            <img className='cur-spot-img' key={spot.id} src={spot.previewImage}></img>
-                            <ul className='cur-Spot-info'>
+                        </div>
+
+                        <a className='SpotCurUser-links' href={`/spots/${spot.id}`}>
+
+                            <img className='SpotCurUser-img' key={spot.id} src={spot.previewImage}></img>
+                            <ul className='SpotCurUser-info'>
                                 <li key={spot.city}>city: {spot.city}</li>
                                 <li key={spot.state}>state:  {spot.state}</li>
                                 <li key={spot.country}>country: {spot.country}</li>
                                 <li key={spot.price}>price: ${spot.price}</li>
                             </ul>
                         </a>
-                        <div className='cur-spot-buttons'>
-                            <button style={{ fontSize: 16, color: 'gray' }}
+                        <div className='SpotCurUser-buttons'>
+                            <button className='SpotCurUser-delete' style={{ fontSize: 16, color: 'gray' }}
                                 onClick={() => {
-                                    dispatch(deleteSpot(spot.id))
+                                    dispatch(deleteSpot(spot.id)).catch(async (res) => {
+                                        setErrors([])
+                                        const error = await res.json();
+                                        console.log('this is error', error)
+                                        if (error) setErrors([error])
+                                    })
+
                                     history.push('/user/spots')
                                 }}
                             >
                                 delete-spot
                             </button>
-                            <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.id}/edit`}>edit-Spot</NavLink> -
-                            <NavLink style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.Id}/images`}>add images</NavLink>    -
+                            <NavLink className='SpotCurUser-edit' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.id}/edit`}>edit-Spot</NavLink> 
+                            <NavLink className='SpotCurUser-addImage' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.Id}/images`}>add images</NavLink>    
                         </div>
                     </>
                 )

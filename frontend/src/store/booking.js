@@ -16,9 +16,10 @@ const loadBookingById = (data) => ({
     data
 })
 
-const addBooking = (booking) =>({
+const addBooking = (booking,previewImage) =>({
     type:ADD_BOOKING,
     booking,
+    previewImage
     
 })
 
@@ -47,7 +48,7 @@ export const getBookingId = (spotId) => async dispatch => {
 
 }
 
-export const addSpotBooking =(dateInfo,spotId) => async dispatch =>{
+export const addSpotBooking =(dateInfo,spotId,previewImage) => async dispatch =>{
     const res = await csrfFetch(`/api/spots/${spotId}/bookings`,{
         method:'post',
         headers:{
@@ -59,7 +60,7 @@ export const addSpotBooking =(dateInfo,spotId) => async dispatch =>{
     
     if(res.ok){
         const booking = await res.json();
-        dispatch(addBooking(booking))
+        dispatch(addBooking(booking,previewImage))
         return booking
     }
 }
@@ -96,11 +97,12 @@ const bookReducer = (state ={}, action) => {
 
         case ADD_BOOKING:{
             const newState = {...state};
-            // console.log('action.spotId', action.spotId)
-            // console.log('action.data', action.data.startDate)
+            console.log('this is the current state', newState)
             newState[action.booking.id] = action.booking
-            
-   
+            console.log('this is the current state2', newState)
+            newState[action.booking.id].Spot = {}
+            newState[action.booking.id].Spot.previewImage = action.previewImage
+
             return newState
         }     
 

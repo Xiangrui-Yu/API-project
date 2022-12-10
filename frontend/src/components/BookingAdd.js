@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { addSpotBooking } from '../store/booking';
+import { getSpotsId } from '../store/spot';
 
 export const BookingAdd = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { spotId } = useParams();
+    
 
     const checkstate = useSelector(state => state.booking);
 
@@ -14,7 +16,12 @@ export const BookingAdd = () => {
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [errors, setError] = useState([])
+    const [errors, setError] = useState([]);
+    const spotPreviewImage = useSelector(state =>state?.spot?.spotId?.previewImage);
+
+    useEffect(()=>{
+        if(spotId) dispatch(getSpotsId(spotId))
+    },[spotId])
 
     // useEffect(() => {
     //     const validation = [];
@@ -28,12 +35,12 @@ export const BookingAdd = () => {
 
         const payload = {
             startDate,
-            endDate
+            endDate,
         }
 
         let createDates;
 
-        createDates = await dispatch(addSpotBooking(payload, spotId)).catch(async (res) => {
+        createDates = await dispatch(addSpotBooking(payload, spotId,spotPreviewImage)).catch(async (res) => {
             setError([])
             const error = await res.json();
             if (error) setError([error])

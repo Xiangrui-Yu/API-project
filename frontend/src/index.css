@@ -5,6 +5,7 @@
 }
 
 .previewImage{
+   border-radius: 20px; 
    width:300px;
    height:300px
    
@@ -24,6 +25,13 @@
     text-align: left;
     line-height: .5em;
 }
+
+.star-rating {
+    display: inline-flex;
+}
+
+
+
 /* SpotBrowers CSS */
 .spot-form {
     display: inline-flex;
@@ -48,99 +56,129 @@
 
 
 
-
-.star-rating {
-    display: inline-flex;
-    flex-direction:row
-}
+/* below SpotId css */
 .spot-detail-outmost-container {
-    display: grid;
-    grid-template-areas:
-    'name name name'
-    'des des des'
-    'first-image spot spot'
-    'owner owner owner'
-    'link link link';
+    display: inline-block;
   }
-.spot-detail-name {
-    grid-area: name;
-    margin-left: 20px;
-    
-}
-
 
 .rest-information {
-    grid-area: des;
+    /* grid-area: des; */
     display: flex;
     justify-content:left;
-
-
+    column-gap: 12px;
+    
+}
+.SpotID-image-grid{
+    display:grid ;
+    grid-template-areas: 
+    "first-image spot-image"
+    ;
 }
 .first-spotImage {
-    grid-area:first-image;
+    border-radius: 20px;
     width:400px;
     height:600px
+    
+}
+.firstImage-container{
+    grid-area:'first-image'
+
 }
 .spotImage-container {
-    grid-area:spot
+    grid-area:'spot-image'
 }
 
 .spotImage {
+    border-radius: 20px;
     width:200px;
     height:200px
 }
 
-.spot-detail-owner {
-    grid-area: owner;
-    font-weight: bold;
-}
+
 .spot-detail-links {
-    grid-area: link;
-    font-weight: bold;
+    display: inline-flex;
 }
+.SpotId-makereservation,.SpotId-checkreservation{
+    border: 2px solid whitesmoke;
+    margin:10px
+}
+.SpotId-makereservation:hover,.SpotId-checkreservation:hover{
+    background-color: bisque;
+
+}
+
 /* SpotCurUser CSS */
-.cur-spot-img{
+
+
+.SpotCurUser-container{
+    border: 2px solid whitesmoke;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.SpotCurUser-img{
     margin-top: 20px;
+    border-radius:20px;
     width:400px;
     height:400px
 }
-
-.cur-user-spot-container{
-    display: inline-flex;
-    flex-direction: column;
+.SpotCurUser-links:hover {
+    border: 1px solid whitesmoke;
 }
 
-.cur-Spot-info {
+.SpotCurUser-info {
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+}
+
+.SpotCurUser-buttons {
     display: flex;
     flex-direction: row;
     justify-content: left;
+    column-gap: 15px;
 }
 
 
+.SpotCurUser-delete,.SpotCurUser-edit,.SpotCurUser-addImage {
+    border: 2px solid whitesmoke;
+}
+
+.SpotCurUser-delete:hover,.SpotCurUser-edit:hover,.SpotCurUser-addImage:hover {
+    background-color: bisque;
+
+}
+
+/* cur */
 .cur-user-bookings-img{
     width:200px;
     height:200px
 }
 
-.cur-spot-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-}
+
 a:link {
     text-decoration: none;
+    color:gray
+    
 }
 
 a:visited {
     text-decoration: none;
+    color:gray
+
 }
 
 a:hover {
     text-decoration: none;
+    color:gray
+
 }
 
 a:active {
     text-decoration: none;
+    color:gray
+
 }
 /* BookingCurUser CSS */
 
@@ -224,4 +262,30 @@ a:active {
     list-style-type:none;
     margin: 20px
 
+}
+
+/* AddSpotImg Css */
+
+.AddSpotImg-image {
+    font-size: 12px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: right;
+    position: absolute;
+    right:30px;
+    border:solid red;
+    text-align: right;
+}
+
+.AddSpotImg-submit{
+    border: 2px solid whitesmoke;
+}
+
+.AddSpotImg-submit:hover{
+    background-color: bisque;
+
+}
+
+.AddSpotImg-h2{
+    text-align: left;
 }
