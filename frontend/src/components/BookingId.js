@@ -34,9 +34,9 @@ export const BookingId = () => {
     return (
         <div>
             {bookingData.map(booking => {
-                return <>
+                return <div className='BookingId-info'>
                     <div>startDate: {booking.startDate}</div>
-                    <div>endDate:  {booking.endDate}</div>
+                    <div>end Date:  {booking.endDate}</div>
                     {/* <button
                         style={{ fontSize: 16, color: 'red' }}
                         onClick={() => {
@@ -46,7 +46,7 @@ export const BookingId = () => {
                         delete reservation!
 
                     </button> */}
-                </>
+                </div>
             })}
         </div>
     )

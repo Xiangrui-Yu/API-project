@@ -27,7 +27,7 @@ function LoginFormPage() {
   }
   return (
     <form className='login-form' onSubmit={handleSubmit}>
-      <ul>
+      <ul className='login-form-Error'>
         {errors.map((error, idx) => {
          return <li key={idx}>{error.message}</li>
         })}
@@ -50,7 +50,7 @@ function LoginFormPage() {
           required
         />
       </label>
-      <button style={{fontSize:16}}type="submit">Log In</button>
+      <button className='login-button' style={{fontSize:16}}type="submit">Log In</button>
     </form>
   );
 }

@@ -126,5 +126,73 @@
 }
 
 .BookingCurUser-info {
+    display: flexbox;
+    flex-direction: column;
     border: 2px solid whitesmoke
+    
+
+}
+
+.BookingCurUser-cancelButton:hover{
+    background-color: bisque;
+}
+.BookingCurUser-checkin{
+    display: block;
+    /* border: 2px solid whitesmoke; */
+}
+.BookingCurUser-checkout{
+    display: block;
+    /* border: 2px solid whitesmoke; */
+}
+
+/* BookingAdd  CSS below */
+
+.BookingAdd-dateform {
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    list-style-type:none;
+    margin: 20px
+}
+
+.BookingAdd-dateform{
+    display: flex;
+    flex-direction: column;
+}
+
+.BookingAdd-button {
+
+    display: inline;
+    font-size: 15px; 
+    border-color: red;
+    width:80px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    
+
+}
+
+.BookingAdd-button:hover{
+    background-color: bisque;
+}
+
+.BookingAdd-error {
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    list-style-type:none;
+    margin: 20px
+}
+
+/* BookingId-info cs */
+
+.BookingId-info{
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    list-style-type:none;
+    margin: 20px
+
 }

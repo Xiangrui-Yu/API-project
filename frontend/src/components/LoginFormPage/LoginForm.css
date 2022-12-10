@@ -7,3 +7,13 @@
     border:solid red;
     text-align: right;
 }
+
+.login-form-Error {
+
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    list-style-type:none;
+    margin: 20px
+    
+}

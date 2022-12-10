@@ -8,21 +8,20 @@ export const BookingAdd = () => {
     const history = useHistory();
     const { spotId } = useParams();
 
-    const checkstate = useSelector(state=>state.booking);
+    const checkstate = useSelector(state => state.booking);
 
-    console.log('check state', checkstate)
 
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [errors, setError] = useState([])
 
-    useEffect(() => {
-        const validation = [];
-        if(startDate.length === 0) validation.push('startDate field is required')
-        if(endDate.length === 0) validation.push('endDate field is required')
-        setError(validation)
-    },[startDate,endDate])
+    // useEffect(() => {
+    //     const validation = [];
+    //     if(startDate.length === 0) validation.push('startDate field is required')
+    //     if(endDate.length === 0) validation.push('endDate field is required')
+    //     setError(validation)
+    // },[startDate,endDate])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,25 +29,34 @@ export const BookingAdd = () => {
         const payload = {
             startDate,
             endDate
-         }
+        }
 
         let createDates;
-        try {
-            createDates = await dispatch(addSpotBooking(payload, spotId))
-        } catch (error) {
-            throw new Error('something is wrong with booking a date')
-        }
+
+        createDates = await dispatch(addSpotBooking(payload, spotId)).catch(async (res) => {
+            setError([])
+            const error = await res.json();
+            if (error) setError([error])
+            // console.log(error.errors)
+
+        })
+        console.log(errors)
 
         if (createDates) {
-            history.push(`/spots/${spotId}`)
+            history.push(`/user/bookings`)
         }
     }
-
+    console.log(errors)
     return (
         <form
-            className='date-form'
+            className='BookingAdd-dateform'
             onSubmit={handleSubmit}
         >
+            <div className='BookingAdd-error'>
+                {errors?.map((error, idx) => <li key={idx}>{error.message}</li>)}
+
+            </div>
+
             <label>
                 startDate
                 <input
@@ -56,23 +64,24 @@ export const BookingAdd = () => {
                     name='startDate'
                     onChange={e => setStartDate(e.target.value)}
                     value={startDate}
+                    required
                 />
             </label>
             <label>
-                endDate
+                end Date
                 <input
                     type='date'
                     name='endDate'
                     onChange={e => setEndDate(e.target.value)}
                     value={endDate}
+                    required
                 />
             </label>
 
             <button
+                className='BookingAdd-button'
                 type='submit'
-                disabled={errors.length >0}
-                style={{fontSize:!6}}
-            
+                style={{ fontSize: !6 }}
             >
                 book it!
             </button>

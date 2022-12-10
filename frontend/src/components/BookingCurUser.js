@@ -34,15 +34,18 @@ export const BookingCurUser = () => {
                     return (
                         <div className='BookingCurUser-info'>
                             <div>
-                                {booking.Spot.previewImage && <img className='cur-user-bookings-img' key={booking.id} src={booking.Spot.previewImage}></img> }
+                                {booking.Spot.previewImage && <img className='cur-user-bookings-img' key={booking.id} src={booking.Spot.previewImage}></img>}
 
                             </div>
-                            
 
-                            <div>
-                                From: {booking.startDate}
-                                To: {booking.endDate}
 
+                            <div className='BookingCurUser-dates'>
+                                <div className='BookingCurUser-checkin'>
+                                    CHECK-IN: {booking.startDate}
+                                </div>
+                                <div className='BookingCurUser-checkout'>
+                                    CHECKOUT: {booking.endDate}
+                                </div>
                             </div>
 
                             <button
