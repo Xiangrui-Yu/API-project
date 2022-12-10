@@ -6,13 +6,17 @@
     border-color: ghostwhite
 }
 
+.Navigation-rightButtons{
+    display: flex;
+    justify-content: space-around;
+}
+
 .homebutton {
     border:0;
     position: relative;
     left: 20px;
-
-
 }
+
 
 button {
     /* border: 0; */
@@ -20,31 +24,25 @@ button {
     cursor: pointer;
     color: rgb(208, 87, 87);
     font-size: 25px;
-
-
 }
 
 .session-login {
-    border:0;
+    /* position:fixed; */
     width: 90px;
     height: 45px;
-    background: whitesmoke;
+    background: white;
     border-style: solid;
     border-radius: 50%;
-    display: flex;
-    justify-content: right;
-    text-decoration: none;
     color: rgb(105, 101, 101);
-    right: 80px;
-    top: 20px
+    
 }
 
 .airbnb-home {
     border:0;
+    font-weight: bold;
     text-align: right;
     font-size: 4px;
     margin-top:10px;
-    position: absolute;
     right: 200px
 }
 
@@ -52,20 +50,52 @@ ul {
     list-style: none;
 }
 
-i {
-    
-    margin-top:8px;
-    margin-right:5px
-
-}
 
 .login-dropdown{
     position:relative;
-    display: inline-block;
-   
+    display: block;
+    text-align: left;
+    border: 2px solid whitesmoke;
+    
 }
 
-.profile-dropdown {
-    position:relative;
-    display: inline-block;
+.navigation-demo{
+    border:0;
+    left:0
+}
+.navigation-login:hover{
+    background-color: rgb(239, 229, 229);
+}
+.navigation-signup:hover{
+    background-color: rgb(239, 229, 229);
+}
+.navigation-demo:hover{
+    background-color: rgb(239, 229, 229);
+}
+.navigation-signup{
+    border-bottom: 1px solid gray;
+}
+
+/* profile button css */
+
+
+.profilebutton{
+    border:0;
+}
+.profile-dropdown{
+    border: 2px solid whitesmoke;
+
+}
+
+.profile-logout{
+    border:0
+}
+.profile-yourspot:hover,.profile-yourbookings:hover,.profile-logout:hover {
+    background-color: rgb(239, 229, 229);
+
+}
+
+.profile-useremail,.profile-yourbookings{
+    border-bottom: 1px solid gray;
+
 }

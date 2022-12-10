@@ -33,23 +33,23 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className='Navigation'>
-      <button onClick={openMenu}>
+    <div >
+      <button className='profilebutton' onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li style={{ color: 'grey', textDecoration: 'none' }}>{user.username}</li>
-          <li style={{ color: 'grey', textDecoration: 'none' }}>{user.email}</li>
+        <div className="profile-dropdown">
+          <div style={{ color: 'grey', textDecoration: 'none' }}>{user.username}</div>
+          <div className='profile-useremail' style={{ color: 'grey', textDecoration: 'none' }}>{user.email}</div>
 
-          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/user/spots">your spots</NavLink></li>
-          <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/user/bookings">your bookings</NavLink></li>
+          <div className="profile-yourspot"><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/user/spots">your spots</NavLink></div>
+          <div className="profile-yourbookings"><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/user/bookings">your bookings</NavLink></div>
 
 
-          <li>
-            <button style ={{fontSize:16}} onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+          <div >
+            <button className="profile-logout" style ={{fontSize:16, color:'grey'}} onClick={logout}>Log Out</button>
+          </div>
+        </div>
       )}
     </div>
   );

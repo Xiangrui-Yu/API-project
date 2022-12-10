@@ -61,11 +61,11 @@ function Navigation({ isLoaded }) {
           <i className="fa-solid fa-circle-user"></i>
         </button>
         {showMenu && (
-          <ul className='login-dropdown'>
-            <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></li>
-            <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></li>
+          <div className='login-dropdown'>
+            <div className='navigation-login'><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/login">Log In</NavLink></div>
+            <div className='navigation-signup'><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/signup">Sign Up</NavLink></div>
             
-            <button style={{ fontSize: 16 }} type="button"
+            <button className='navigation-demo' style={{ fontSize: 16, color:'grey' }} type="button"
               onClick={() => {
                 dispatch(sessionActions.demoUser({ credential, password }))
                 history.push('/')
@@ -74,7 +74,7 @@ function Navigation({ isLoaded }) {
 
 
             {/* <li><NavLink style={{ color: 'grey', textDecoration: 'none' }} to="/demo">demo-user</NavLink></li> */}
-          </ul>
+          </div>
         )}
       </div>
     );
@@ -92,7 +92,7 @@ function Navigation({ isLoaded }) {
         <NavLink exact to="/" style={{ color: 'red', fontSize: 20, textDecoration: 'none' }}> airbnb </NavLink>
       </button >
 
-      <div>
+      <div className='Navigation-rightButtons'>
         <button className='airbnb-home'>
           <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink>
         </button>
