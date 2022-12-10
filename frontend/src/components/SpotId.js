@@ -62,6 +62,7 @@ export const SpotId = () => {
 
             </div>
 
+
             <div className='spot-detail-links'>
 
 

@@ -6,9 +6,11 @@ import { addNewImg } from '../store/spot';
 export const AddSpotImg = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
+    console.log(spotId)
     const history = useHistory()
 
     const Spot = useSelector(state => state?.spot);
+    console.log(Spot)
 
     const [url, setUrl] = useState('');
     const [errors, setError] = useState([])

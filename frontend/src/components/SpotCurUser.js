@@ -61,7 +61,7 @@ export const SpotCurUser = () => {
                                 delete-spot
                             </button>
                             <NavLink className='SpotCurUser-edit' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.id}/edit`}>edit-Spot</NavLink> 
-                            <NavLink className='SpotCurUser-addImage' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.Id}/images`}>add images</NavLink>    
+                            <NavLink className='SpotCurUser-addImage' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spot.id}/images`}>add images</NavLink>    
                         </div>
                     </>
                 )
