@@ -89,7 +89,7 @@ function Navigation({ isLoaded }) {
     <div className='Navigation'>
       <button className='homebutton' >
         <i className="fa-brands fa-airbnb"></i>
-        <NavLink exact to="/" style={{ color: 'red', fontSize: 20, textDecoration: 'none' }}> airbnb </NavLink>
+        <NavLink exact to="/" style={{ color: 'red', fontSize: 20, textDecoration: 'none' }}> airBingBing </NavLink>
       </button >
 
       <div className='Navigation-rightButtons'>
