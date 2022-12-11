@@ -33,8 +33,35 @@ module.exports = {
       },
       {
         spotId:3,
-        preview:false
-      }
+        url:'https://images.unsplash.com/photo-1582490841511-81e1363fb48c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+        preview:true
+      },
+      {
+        spotId:4,
+        url:'https://images.unsplash.com/photo-1626290131022-4e5a5e167173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+        preview:true
+      },
+      {
+        spotId:5,
+        url:'https://images.unsplash.com/photo-1626290131022-4e5a5e167173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+        preview:true
+      },
+      {
+        spotId:6,
+        url:'https://images.unsplash.com/photo-1590725140246-20acdee442be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+        preview:true
+      },
+      {
+        spotId:7,
+        url:'https://images.unsplash.com/photo-1591825729269-caeb344f6df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        preview:true
+      },
+      {
+        spotId:8,
+        url:'https://images.unsplash.com/photo-1553444836-bc6c8d340ba7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
+        preview:true
+      },
+      
     ])
   },
 
