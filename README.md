@@ -1,5 +1,5 @@
     ## Intro section about your project.
-      This project uses SQL database in backend and React in the frontend to 
+      This project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb website. This project will allow for the creation, display, updating and deletion of spots and booking. 
       
 
 
