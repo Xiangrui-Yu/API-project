@@ -16,7 +16,8 @@
         Sequelize
 
     ## Pictures that are labeled that showcase your project.
-    ![image](https://user-images.githubusercontent.com/71681500/206884515-b749480a-6c97-465e-9414-2688390c9fed.png)
+    ![Screenshot 2022-12-10 at 9 58 28 PM](https://user-images.githubusercontent.com/71681500/206884543-f0eb85a3-e9b8-4c50-9d76-514a37723e9a.png)
+
 
       
     Complete instructions on how to launch the full application locally.
