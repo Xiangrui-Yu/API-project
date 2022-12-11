@@ -173,8 +173,6 @@ const spotReducer = (state = {}, action) => {
 
             // console.log("this is triggered")
             const newState = {...state};
-            // console.log('this is action.spot',action.spotId)
-            // console.log('this is action.image', action.image)
 
             newState[action.image.id] = action.image;
             return newState
