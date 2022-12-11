@@ -1,4 +1,4 @@
-    - Intro section about your project.
+    ## Intro section about your project.
       This project uses SQL database in backend and React in the frontend to 
       
 
@@ -16,6 +16,8 @@
         Sequelize
 
     ## Pictures that are labeled that showcase your project.
+    ![image](https://user-images.githubusercontent.com/71681500/206884515-b749480a-6c97-465e-9414-2688390c9fed.png)
+
       
     Complete instructions on how to launch the full application locally.
 
