@@ -178,7 +178,7 @@ export const SpotBrowser = () => {
             <button
                 className='SpotBroweer-submit'
                 type='submit'
-                disabled={errors.length > 0}
+                // disabled={errors.length > 0}
                 style={{ fontSize: 16 }}
             >
                 Submit

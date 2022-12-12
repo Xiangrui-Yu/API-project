@@ -172,7 +172,7 @@ export const SpotEdit = () => {
             <button
                 className='SpotEdit-button'
                 type='submit'
-                disabled={errors.length > 0}
+                // disabled={errors.length > 0}
                 style={{ fontSize: 16 }}
             >
                 Submit
