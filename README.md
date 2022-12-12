@@ -1,30 +1,29 @@
-    # Intro section about your project.
-      This is a full stack project. The project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb's website. This project will allow for the creation, display, updating and deletion of spots and booking. 
+  # Intro section about your project.
+    This is a full stack project. The project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb's website. This project will allow for the creation, display, updating and deletion of spots and booking. 
       
 
 
 
-    # List of technologies used on the project.
-      Frontend:
-        Javascript
-        React
-        Redux
-        Redux Thunk
-      Backend:
-        SQL
-        Express
-        Sequelize
+  # List of technologies used on the project.
+    Frontend:
+      Javascript
+      React
+      Redux
+      Redux Thunk
+    Backend:
+      SQL
+      Express
+      Sequelize
 
-    # Pictures that are labeled that showcase your project.
-    ## The file structure
+  # Pictures that are labeled that showcase your project.
+  ## The file structure for this project
+![Alt text](assets/structure.png)
 
+  ## the website outlooks
+  ![Alt text](assets/outlook.png)
 
-
- 
-
-    ## the website outlooks
-
-    ![websiteoutlooks]](./assets/outlook.png)
+  ## Navigation bar
+  ![Alt text](assets/NavigationBar.png)  
 
 
 
