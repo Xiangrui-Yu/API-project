@@ -1,5 +1,5 @@
   # Intro section about your project.
-    This is a full stack project. The project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb's website. This project will allow for the creation, display, updating and deletion of spots and booking. 
+    This is a full stack project. The project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb's website. This project will allow for the creation, display, updating and deletion of spots and booking. Regarding the API documentation, please refer to the README in the backend folder.
       
 
 
