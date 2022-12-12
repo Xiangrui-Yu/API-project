@@ -23,7 +23,7 @@
 
     ## the website outlooks
 
-    ![website outlooks]]('./assets/outlook.png')
+    ![website outlooks]]('../assets/outlook.png')
 
 
 
