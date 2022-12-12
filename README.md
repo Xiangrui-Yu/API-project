@@ -17,11 +17,13 @@
 
     # Pictures that are labeled that showcase your project.
     ## The file structure
-    ![file structure](5-Module/4-week/3-day/API-project/assets/Screenshot 2022-12-10 at 9.58.28 PM.png)
+
+
+ 
 
     ## the website outlooks
 
-    ![website outlooks]](/Users/rayyu/appacademy-2022-Apr-E/5-Module/4-week/3-day/API-project/assets/Screenshot 2022-12-11 at 2.15.15 PM.png)
+    ![website outlooks]]('./assets/outlook.png')
 
 
 
