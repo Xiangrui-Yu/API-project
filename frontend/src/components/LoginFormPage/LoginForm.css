@@ -5,6 +5,7 @@
     position: absolute;
     right:30px;
     border:solid red;
+    padding: 5px 5px;
     text-align: right;
 }
 
