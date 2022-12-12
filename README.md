@@ -19,11 +19,12 @@
     ## The file structure
 
 
+
  
 
     ## the website outlooks
 
-    ![website outlooks]]('../assets/outlook.png')
+    ![websiteoutlooks]](./assets/outlook.png)
 
 
 
