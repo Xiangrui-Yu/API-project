@@ -1,10 +1,10 @@
-    ## Intro section about your project.
-      This project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb website. This project will allow for the creation, display, updating and deletion of spots and booking. 
+    # Intro section about your project.
+      This is a full stack project. The project uses SQL database in the backend and React in the frontend to simulate the popular company: Airbnb's website. This project will allow for the creation, display, updating and deletion of spots and booking. 
       
 
 
 
-    ## List of technologies used on the project.
+    # List of technologies used on the project.
       Frontend:
         Javascript
         React
@@ -15,13 +15,24 @@
         Express
         Sequelize
 
-    ## Pictures that are labeled that showcase your project.
-   
+    # Pictures that are labeled that showcase your project.
+    ## The file structure
+    ![file structure](5-Module/4-week/3-day/API-project/assets/Screenshot 2022-12-10 at 9.58.28 PM.png)
+
+    ## the website outlooks
+
+    ![website outlooks]](/Users/rayyu/appacademy-2022-Apr-E/5-Module/4-week/3-day/API-project/assets/Screenshot 2022-12-11 at 2.15.15 PM.png)
 
 
 
-      
-  
+    # Getting Started
+    Make sure you are using Node version 16!
+    1. Download or clone the repository
+    2. cd into backend folder run npm install
+    3. cd into frontend folder run npm install
 
-    ## Getting Started
-    Make sure you are using Node version 16! Run `npm install` to install dependencies in both backend folder and frontend folder. Run npm start in backend folder to start the backend server. Then run npm start in frontend folder to start the frontend server.
+    ## To check this project in the browser, run:
+    1. npm start backend folder
+    2. npm start frontend folder
+    3. Navigate to localhost:3000
+
