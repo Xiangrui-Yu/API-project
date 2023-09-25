@@ -100,13 +100,34 @@
 .spot-detail-links {
     display: inline-flex;
 }
-.SpotId-makereservation,.SpotId-checkreservation{
-    border: 2px solid whitesmoke;
+/* .SpotId-makereservation,.SpotId-checkreservation{
+    border: 2px solid black;
     margin:10px
 }
 .SpotId-makereservation:hover,.SpotId-checkreservation:hover{
     background-color: bisque;
 
+} */
+.SpotId-makereservation,
+.SpotId-checkreservation {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ff5a5f; 
+  color: white; 
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin: 10px;
+}
+
+.SpotId-makereservation:hover,
+.SpotId-checkreservation:hover {
+  background-color: #ff4449; 
 }
 
 /* SpotCurUser CSS */
@@ -291,3 +312,4 @@ a:active {
 .AddSpotImg-h2{
     text-align: left;
 }
+

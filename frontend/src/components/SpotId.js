@@ -66,8 +66,8 @@ export const SpotId = () => {
             <div className='spot-detail-links'>
 
 
-                <NavLink className='SpotId-makereservation' style={{ color: 'grey', textDecoration: 'none' }} to={`/spots/${spotId}/bookings/new`}>make a reservation !</NavLink> 
-                <NavLink className='SpotId-checkreservation' style={{ color: 'grey', textDecoration: 'none' }} to={`/bookings/${spotId}`}>check current reservation !</NavLink>
+                <NavLink className='SpotId-makereservation' style={{ color: 'black', textDecoration: 'none' }} to={`/spots/${spotId}/bookings/new`}>make a reservation !</NavLink> 
+                <NavLink className='SpotId-checkreservation' style={{ color: 'black', textDecoration: 'none' }} to={`/bookings/${spotId}`}>check current reservation !</NavLink>
             </div>
 
 
