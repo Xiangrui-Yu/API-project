@@ -347,3 +347,7 @@ a:active {
     text-align: left;
 }
 
+.Navigation {
+    display: flex;
+    flex-direction: column;
+}

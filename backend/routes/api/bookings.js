@@ -94,7 +94,7 @@ router.put('/:bookingId',requireAuth, async(req,res,next) => {
     if(theBooking.userId !== userId){
         res.status(403);
         res.json(  {
-            "message": "Forbidden",
+            "message": "You are not the user",
             "statusCode": 403
           })
     }

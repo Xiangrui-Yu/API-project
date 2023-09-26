@@ -89,9 +89,28 @@ function Navigation({ isLoaded }) {
     return sessionLinks
   }
 
+  const [showMenuAirbnb, setShowMenuAirbnb] =  useState(false)
 
 
+  const openMenuAirbnb = () => {
+    if (showMenuAirbnb) return;
+    setShowMenuAirbnb(true);
+  };
 
+  useEffect(() => {
+    if (!showMenuAirbnb) return;
+
+    const closeMenuAirbnb = () => {
+      if(document.activeElement.tagName ==='INPUT'){
+        return;
+      }
+      setShowMenuAirbnb(false);
+    };
+
+    document.addEventListener('click', closeMenuAirbnb);
+
+    return () => document.removeEventListener("click", closeMenuAirbnb);
+  }, [showMenuAirbnb]);
 
   return (
     <div className='Navigation'>
@@ -101,12 +120,12 @@ function Navigation({ isLoaded }) {
       </button >
 
       <div className='Navigation-rightButtons'>
-        <button className='airbnb-home' onClick={openMenu} style={{color:'grey',fontSize:16, textDecoration:'none'}}>
+        <button className='airbnb-home' onClick={openMenuAirbnb} style={{color:'grey',fontSize:16, textDecoration:'none'}}>
           {/* <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink> */}
           
           Airbnb your home
         </button>
-        {showMenu&& <SpotBrowser />}
+        {showMenuAirbnb&& <SpotBrowser />}
 
         {isLoaded && sessionLinks}
 
