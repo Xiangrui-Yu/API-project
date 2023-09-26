@@ -4,6 +4,7 @@ import { NavLink, Route, useParams, useHistory } from 'react-router-dom';
 import { getSpotsId, deleteSpot } from '../store/spot';
 
 
+
 export const SpotId = () => {
     const { spotId } = useParams();
     const spotData = useSelector(state => {

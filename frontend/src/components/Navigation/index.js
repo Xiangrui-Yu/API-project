@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import {SpotBrowser} from "../SpotBrowser"
 // demo-user code
 import * as sessionActions from '../../store/session';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +27,9 @@ function Navigation({ isLoaded }) {
     if (!showMenu) return;
 
     const closeMenu = () => {
+      if(document.activeElement.tagName ==='INPUT'){
+        return;
+      }
       setShowMenu(false);
     };
 
@@ -85,6 +89,10 @@ function Navigation({ isLoaded }) {
     return sessionLinks
   }
 
+
+
+
+
   return (
     <div className='Navigation'>
       <button className='homebutton' >
@@ -93,9 +101,12 @@ function Navigation({ isLoaded }) {
       </button >
 
       <div className='Navigation-rightButtons'>
-        <button className='airbnb-home'>
-          <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink>
+        <button className='airbnb-home' onClick={openMenu} style={{color:'grey',fontSize:16, textDecoration:'none'}}>
+          {/* <NavLink exact to="/spots/new" style={{ color: 'grey', fontSize: 16, textDecoration: 'none' }}> Airbnb your home </NavLink> */}
+          
+          Airbnb your home
         </button>
+        {showMenu&& <SpotBrowser />}
 
         {isLoaded && sessionLinks}
 
