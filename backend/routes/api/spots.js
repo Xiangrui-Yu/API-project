@@ -589,7 +589,7 @@ router.post('/:spotId/bookings',requireAuth, async(req,res,next) =>{
     if((spot.ownerId === userId)){
         res.status(403);
         return res.json(  {
-            "message": "Forbidden",
+            "message": "Since you are the owner of this house, you are not able to make a reservation for it.",
             "statusCode": 403
           })
     }
