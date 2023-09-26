@@ -1,26 +1,26 @@
 .login-form {
     display: inline-flex;
     flex-direction: column;
-    justify-content: flex-end; /* Align content to the bottom */
+    justify-content: flex-end;
     position: absolute;
-    top: 30px; /* Adjust this value to position the form vertically */
+    top: 30px;
     right: 30px;
-    background-color: white; /* White background */
-    border: 1px solid #e0e0e0; /* Light gray border */
+    background-color: #fff; /* Airbnb uses white background */
+    border: 1px solid #ddd; /* Light gray border */
     border-radius: 4px;
-    padding: 20px; /* Add some padding for spacing */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: right;
 }
 
 /* Error Messages */
 .login-form-Error {
-    border: 2px solid #e0e0e0; /* Light gray border */
+    border: 2px solid #ddd; /* Light gray border */
     border-radius: 5px;
     text-align: center;
     list-style-type: none;
-    margin-top: 10px; /* Add top margin for spacing */
-    padding: 10px; /* Add padding for spacing */
+    margin-top: 10px;
+    padding: 10px;
     background-color: #fff; /* White background */
     color: #ff5a5f; /* Red text color */
     font-weight: bold;

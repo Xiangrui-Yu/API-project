@@ -1,19 +1,29 @@
 .signup-form {
     display: inline-flex;
     flex-direction: column;
-    justify-content: right;
+    justify-content: flex-end;
     position: absolute;
-    right:30px;
-    border:solid red;
-    padding:5px 5px;
+    top: 30px; 
+    right: 30px;
+    background-color: #fff; 
+    border: 1px solid #ddd; 
+    border-radius: 4px;
+    padding: 20px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     text-align: right;
-    
 }
 
-.signup-error{
-    border: 2px solid whitesmoke;
+/* Error Messages */
+.signup-error {
+    border: 2px solid #ddd; 
     border-radius: 5px;
     text-align: center;
-    list-style-type:none;
-    margin: 20px
+    list-style-type: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff; 
+    color: #ff5a5f; 
+    font-weight: bold;
 }
+
+
